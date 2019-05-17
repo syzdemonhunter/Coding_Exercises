@@ -1,4 +1,6 @@
 # https://leetcode.com/problems/string-to-integer-atoi/
+# T: O(n)
+# S: O(1)
 
 class Solution(object):
     def myAtoi(self, str):
