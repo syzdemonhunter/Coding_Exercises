@@ -1,0 +1,13 @@
+# https://leetcode.com/problems/missing-number/
+# T: O(n)
+# S: O(1)
+
+
+class Solution(object):
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(nums)
+        return n*(n+1)/2 - sum(nums)
