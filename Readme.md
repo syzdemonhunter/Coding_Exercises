@@ -1,3 +1,4 @@
-# Leetcode Exerices for Data Science Interview
+# Coding exercises for data science interview
 
-Frequent problems without the hard ones.
+- Leetcode: Leetcode exercises for data science interview.
+- Machine Learning: Machine Learning exercises for data science interview.
