@@ -1,6 +1,7 @@
 # https://leetcode.com/problems/symmetric-tree/
 # T: O(n)
 # S: O(n)
+
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -37,3 +38,4 @@ class Solution(object):
             else:
                 return False
         return True
+        
