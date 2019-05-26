@@ -2,7 +2,6 @@
 # T: O(n)
 # S: O(n)
 
-
 class Solution(object):
     def singleNumber(self, nums):
         """
