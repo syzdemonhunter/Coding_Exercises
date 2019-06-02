@@ -1,3 +1,5 @@
+# https://leetcode.com/problems/implement-stack-using-queues/
+
 import collections
 
 class MyStack:
@@ -10,7 +12,7 @@ class MyStack:
         
         
 
-    def push(self, x: int) -> None: 
+    def push(self, x: int) -> None:
         """
         Push element x onto stack.
         """
