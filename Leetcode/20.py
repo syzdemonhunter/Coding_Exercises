@@ -1,33 +1,23 @@
 # https://leetcode.com/problems/valid-parentheses/
 # T: O(n)
-# S: O(1)
+# S: O(n)
 
-
-class Solution(object):
-    def isValid(self, s):
-        """
-        :type s: str
-        :rtype: bool
-        """
-        if not s:
+class Solution:
+    def isValid(self, s: str) -> bool:
+        if not s or len(s) == 0:
             return True
-        
         stack = []
-        for i in s:
-            if i == '(' or i == '[' or i == '{':
-                stack.append(i)
-            elif not stack:
-                return False
+        
+        for ch in s:
+            if ch == '(':
+                stack.append(')')
+            elif ch == '[':
+                stack.append(']')
+            elif ch == '{':
+                stack.append('}')
             else:
-                if i == ')' and stack[-1] != '(':
+                if not stack or stack.pop() != ch:
                     return False
-                elif i == ']' and stack[-1] != '[':
-                    return False
-                elif i == '}' and stack[-1] != '{':
-                    return False
-                stack.pop()
                 
-        if not stack:
-            return True
-        return False
-                
+        return not stack
+        

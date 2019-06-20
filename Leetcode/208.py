@@ -2,20 +2,11 @@
 
 class TrieNode(object):
     def __init__(self, end=False):
-        self.children = []
-        for i in range(26):
-            self.children.append(None)
-        self.end = end
+        self.word=False
+        self.children={}
         
-    def set_end(self):
-        self.end = True
         
-    @property    
-    def is_end(self):
-        return self.end
-
-    
-class Trie(object):
+class Trie:
 
     def __init__(self):
         """
@@ -23,53 +14,43 @@ class Trie(object):
         """
         self.root = TrieNode()
         
-
-    def insert(self, word):
+    # time: O(n), n: word.length
+    # space: O(num of TrieNode*26) = O(num of word.length*26)
+    def insert(self, word: str) -> None:
         """
         Inserts a word into the trie.
-        :type word: str
-        :rtype: None
         """
-        cur = self.root
-        for letter in word:
-            idx = ord(letter) - ord('a')
-            if not cur.children[idx]:
-                cur.children[idx] = TrieNode()
-            cur = cur.children[idx]
-        cur.set_end()
+        node = self.root
+        for i in word:
+            if i not in node.children:
+                node.children[i] = TrieNode()
+            node = node.children[i]
+        node.word = True
         
 
-    def search(self, word):
+    def search(self, word: str) -> bool:
         """
         Returns if the word is in the trie.
-        :type word: str
-        :rtype: bool
         """
-        cur = self.root
-        for letter in word:
-            idx = ord(letter) - ord('a')
-            if not cur.children[idx]:
+        node = self.root
+        for i in word:
+            if i not in node.children:
                 return False
-            else:
-                cur = cur.children[idx]
-        return cur.is_end
+            node = node.children[i]
+        return node.word
         
 
-    def startsWith(self, prefix):
+    def startsWith(self, prefix: str) -> bool:
         """
         Returns if there is any word in the trie that starts with the given prefix.
-        :type prefix: str
-        :rtype: bool
         """
-        cur = self.root
-        for letter in prefix:
-            idx = ord(letter) - ord('a')
-            if not cur.children[idx]:
+        node = self.root
+        for i in prefix:
+            if i not in node.children:
                 return False
-            else:
-                cur = cur.children[idx]
+            node = node.children[i]
         return True
-            
+        
 
 
 # Your Trie object will be instantiated and called as such:

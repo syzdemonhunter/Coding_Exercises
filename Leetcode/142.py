@@ -14,17 +14,18 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
+        if not head or not head.next:
+            return None
+        
         fast, slow = head, head
         while fast and fast.next:
-            fast = fast.next.next
             slow = slow.next
+            fast = fast.next.next
             if fast == slow:
                 p = head
                 while p != slow:
                     p = p.next
                     slow = slow.next
-                    
                 return p
-            
         return None
         

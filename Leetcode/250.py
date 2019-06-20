@@ -1,4 +1,4 @@
-# https://leetcode.com/problems/count-univalue-subtrees/
+# https://leetcode.com/problems/count-univalue-subtrees/submissions/
 # T: O(n)
 # S: O(n)
 
@@ -11,21 +11,22 @@
 
 class Solution:
     def countUnivalSubtrees(self, root: TreeNode) -> int:
-        self.count = 0
-        self.dfs(root)
-        return self.count
+        self.result = 0
+        self.helper(root)
+        return self.result
     
-     # bottom-up, first check the leaf nodes and count them, 
-    # then go up, if both children are "True" and root.val is 
-    # equal to both children's values if exist, then root node
-    # is uniValue suntree node.
-    
-    def dfs(self, root):
+    def helper(self, root):
         if not root:
             return True
-        l, r = self.dfs(root.left), self.dfs(root.right)
-        if l and r and (not root.left or root.left.val == root.val) and\
-        (not root.right or root.right.val == root.val):
-            self.count += 1
+        left = self.helper(root.left)
+        right = self.helper(root.right)
+        if left and right:
+            if root.left and root.val != root.left.val:
+                return False
+            if root.right and root.val != root.right.val:
+                return False
+            self.result += 1
             return True
         return False
+            
+        

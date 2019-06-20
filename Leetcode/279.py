@@ -6,7 +6,7 @@
 # 1 + numSquares(12 - 1)
 # 4 + numSquares(12 - 4) = 4 + 1 + numSquares(8 - 1)
 #                        = 4 + 4 + numSquares(8 - 4)     
-# Time O(n * sqrt(n))
+# Time O(n*sqrt(n))
 # Space O(n)
 import math
 class Solution(object):
@@ -21,6 +21,6 @@ class Solution(object):
         
         for i in range(1, n + 1):
             for j in range(1, int(math.sqrt(i)) + 1):
-                dp[i] = min(dp[i], dp[i - j*j] + 1)
+                dp[i] = min(dp[i], dp[i - j**2] + 1)
                 
         return dp[n]

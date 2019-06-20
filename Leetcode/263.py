@@ -1,22 +1,21 @@
 # https://leetcode.com/problems/ugly-number/
-# T: O(m + n + l)
-# S: O(1)
-
-class Solution(object):
-    def isUgly(self, num):
-        """
-        :type num: int
-        :rtype: bool
-        """
-        if num <= 0:
+# 面试中没怎么见过
+# Time: O(n) or linear time
+# Time: O(1)
+class Solution:
+    def isUgly(self, num: int) -> bool:
+        if num == 1:
+            return True
+        if num == 0:
             return False
+        
         while num % 2 == 0:
-            num /= 2
+            num //= 2
         while num % 3 == 0:
-            num /= 3
+            num //= 3
         while num % 5 == 0:
-            num /= 5
+            num //= 5
             
         return num == 1
-            
+        
         

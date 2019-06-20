@@ -1,4 +1,7 @@
 # https://leetcode.com/problems/binary-tree-paths/
+# T: O(n)
+# S: O(n)
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -6,30 +9,20 @@
 #         self.left = None
 #         self.right = None
 
-# > 类型：DFS遍历 | 分制
-# > Time Complexity O(n)
-# > Space Complexity O(1)
-
-# DFS遍历
-# 这里利用str是immutable的特性，不需要考虑每次backtrack时候对temp数组的更改。
-
-# 如果没有左右孩子：将temp存入返回数组res
-
-
 class Solution:
     def binaryTreePaths(self, root: TreeNode) -> List[str]:
         if not root:
             return []
         result = []
-        self.dfs(root, result, '')
+        self.dfs(result, root, '')
         return result
     
-    def dfs(self, root, result, tmp):
-        tmp += str(root.val)
+    def dfs(self, result, root, path):
         if not root.left and not root.right:
-            result.append(tmp)
+            result.append(path + str(root.val))
         if root.left:
-            self.dfs(root.left, result, tmp + '->')
+            self.dfs(result, root.left, path + str(root.val) + '->')
         if root.right:
-            self.dfs(root.right, result, tmp + '->')
+            self.dfs(result, root.right, path + str(root.val) + '->')
+        
         

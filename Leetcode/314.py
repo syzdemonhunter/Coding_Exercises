@@ -1,8 +1,7 @@
 # https://leetcode.com/problems/binary-tree-vertical-order-traversal/
-# 对于一棵树，我们设其根节点的位置为0。
-# 对于任一非叶子节点，若其位置为x，设其左儿子的位置为x-1，右儿子位置为x+1。
-# 按照以上规则bfs遍历整棵树统计所有节点的位置，然后按位置从小到大输出所有节点。
-
+# 这道题看似诡异，但是很重要
+# T: O(n)
+# S: O(n)
 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -11,22 +10,41 @@
 #         self.left = None
 #         self.right = None
 import collections
-
 class Solution:
+    def __init__(self):
+        self.min_val = 0
+        self.max_val = 0
+        
     def verticalOrder(self, root: TreeNode) -> List[List[int]]:
         if not root:
             return []
-        q = collections.deque()
-        my_dict = collections.defaultdict(list)
-        q.append((root, 0))
         
-        while q:
-            node, x = q.popleft()
-            if node:
-                my_dict[x].append(node.val)
-                q.append((node.left, x - 1))
-                q.append((node.right, x + 1))
-                
-        return [my_dict[i] for i in sorted(my_dict.keys())]
+        result = []
+        self.helper(root, 0)
+        for i in range(self.min_val, self.max_val + 1):
+            result.append([])
             
+        q = collections.deque([root])
+        index = collections.deque([-self.min_val])
+        while q:
+            cur = q.popleft()
+            idx = index.popleft()
+            result[idx].append(cur.val)
+            if cur.left:
+                q.append(cur.left)
+                index.append(idx - 1)
+            if cur.right:
+                q.append(cur.right)
+                index.append(idx + 1)
+                
+        return result
+        
+    def helper(self, root, idx):
+        if not root:
+            return
+        
+        self.min_val = min(self.min_val, idx)
+        self.max_val = max(self.max_val, idx)
+        self.helper(root.left, idx - 1)
+        self.helper(root.right, idx + 1)
         

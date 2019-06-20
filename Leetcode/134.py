@@ -5,6 +5,8 @@
 
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        if len(gas) == 0 or len(cost) == 0 or len(gas) != len(cost):
+            return -1
         start = 0
         remain = 0
         debt = 0

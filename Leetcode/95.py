@@ -1,7 +1,3 @@
-# https://leetcode.com/problems/unique-binary-search-trees-ii/
-# https://www.youtube.com/watch?v=GZ0qvkTAjmw
-# time 应该是N^3 space应该 是o(n)
-
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -9,41 +5,64 @@
 #         self.left = None
 #         self.right = None
 
+"""
+T: O(n)
+
+
 class Solution:
     def generateTrees(self, n: int) -> List[TreeNode]:
-        return self.helper(1, n)
-    
-    def helper(self, min_val, max_val):
-        if min_val > max_val:
-            return []
-        
-        result = []
-        for rt in range(min_val, max_val + 1):
-            left_list = self.helper(min_val, rt - 1)
-            right_list = self.helper(rt + 1, max_val)
-            if len(left_list) == 0 and len(right_list) == 0:
-                root = TreeNode(rt)
-                result.append(root)
-                
-            elif len(left_list) == 0:
-                for right in right_list:
-                    root = TreeNode(rt)
-                    root.right = right
-                    result.append(root)
-                    
-            elif len(right_list) == 0:
-                for left in left_list:
-                    root = TreeNode(rt)
-                    root.left = left
-                    result.append(root)
-            else:
-                for left in left_list:
-                    for right in right_list:
-                        root = TreeNode(rt)
+        result = [None]*(n + 1)
+        result[0] = []
+        if n == 0:
+            return result[0]
+        result[0].append(None)
+        for i in range(1, n + 1):
+            result[i] = []
+            for j in range(i):
+                for left in result[j]:
+                    for right in result[i - j - 1]:
+                        root = TreeNode(j + 1)
                         root.left = left
-                        root.right = right
-                        result.append(root)
+                        root.right = self.clone(right, j + 1)
+                        result[i].append(root)
                         
-        return result
+        return result[n]
+    
+    def clone(self, root, k):
+        if not root:
+            return root
+        cur = TreeNode(root.val + k)
+        cur.left = self.clone(root.left, k)
+        cur.right = self.clone(root.right, k)
+        return cur
+"""
+# T: O(n)
+
+class Solution:
+    def generateTrees(self, n: int) -> List[TreeNode]:
+        if n == 0:
+            return []
+        return self.dfs(1, n)
         
+    def dfs(self, start, end):
+        path = []
+        if start > end:
+            path.append(None)
+        for idx in range(start, end + 1):
+            left_list = self.dfs(start, idx - 1)
+            right_list = self.dfs(idx + 1, end)
+            for left in left_list:
+                for right in right_list:
+                    root = TreeNode(idx)
+                    root.left = left
+                    root.right = right
+                    path.append(root)
+                    
+        return path
+            
+            
+            
+        
+        
+                
         

@@ -1,13 +1,13 @@
 # https://leetcode.com/problems/range-sum-query-2d-immutable/
 # http://zxi.mytechroad.com/blog/dynamic-programming/leetcode-304-range-sum-query-2d-immutable/
 # Dynamic programming
-# Time complexity: O(n^2)
-# sumRegion: O(1)
 
+# Time complexity: O(m*n)
+# sumRegion: O(m*n)
 class NumMatrix:
 
     def __init__(self, matrix: List[List[int]]):
-        if len(matrix) == 0 or len(matrix[0]) == 0:
+        if not matrix or len(matrix) == 0 or len(matrix[0]) == 0:
             return
         
         m, n = len(matrix), len(matrix[0])
@@ -20,7 +20,8 @@ class NumMatrix:
                               - self.dp[i - 1][j - 1]
                  
         
-
+    # Time complexity: O(1)
+    # sumRegion: O(1)
     def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
         return self.dp[row2 + 1][col2 + 1] \
              - self.dp[row1][col2 + 1]  \

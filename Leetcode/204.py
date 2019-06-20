@@ -1,17 +1,13 @@
 # https://leetcode.com/problems/count-primes/
-# T: O(n log log n)
+# T: O(nloglogn)
 # S: O(n)
 
-class Solution(object):
-    def countPrimes(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
+class Solution:
+    def countPrimes(self, n: int) -> int:
         if n <= 2:
             return 0
         
-        is_prime = [True] * n
+        is_prime = [True]*n
         is_prime[0], is_prime[1] = False, False
         
         for i in range(2, int((n-1)**0.5) + 1):

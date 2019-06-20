@@ -1,5 +1,5 @@
 # https://leetcode.com/problems/find-peak-element/
-# T: O(n)
+# T: O(logn)
 # S: O(1)
 
 class Solution:

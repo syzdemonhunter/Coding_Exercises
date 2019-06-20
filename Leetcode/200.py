@@ -1,7 +1,8 @@
 # https://leetcode.com/problems/number-of-islands/
 # https://www.youtube.com/watch?v=o8S2bO3pmO4
+# 这道题非常非常重要
 # T: O(m*n)
-# S: O(m*n)
+# S: O(n)
 
 class Solution(object):
     def numIslands(self, grid):

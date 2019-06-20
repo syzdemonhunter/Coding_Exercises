@@ -4,6 +4,7 @@
 # 切出来的字符有可能是“007”， “00”之类的，需要跳过
 # T: O(3^4)
 # S: O(n)
+# 不重要，基本没出现过
 
 class Solution:
     def restoreIpAddresses(self, s: str) -> List[str]:
@@ -23,3 +24,4 @@ class Solution:
                 number = int(s[:i]) # 切出来的字符有可能是“007”， “00”之类的，需要跳过
                 if str(number) == s[:i] and number <= 255:
                     self.dfs(s[i:], path + [s[:i]], result)
+        

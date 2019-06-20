@@ -1,10 +1,10 @@
 # https://leetcode.com/problems/summary-ranges/
 # T: O(n)
-# S: O(1)
+# S: O(n)
 
 class Solution:
     def summaryRanges(self, nums: List[int]) -> List[str]:
-        if not nums:
+        if not nums or len(nums) == 0:
             return []
         
         result = []
@@ -21,4 +21,3 @@ class Solution:
                     start = end = nums[i]
                     
         return result
-        

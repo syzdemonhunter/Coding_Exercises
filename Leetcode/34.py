@@ -1,30 +1,45 @@
 # https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
-# T: O(log(n))
+# T: O(logn)
 # S: O(1)
-
-
-class Solution(object):
-    def bin_search(self, nums, target):
-        low, high = 0, len(nums) - 1
-        while low <= high:
-            mid = low + (high - low)//2
-            if nums[mid] > target:
-                high = mid - 1
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        if not nums or len(nums) == 0:
+            return [-1, -1]
+        start = self.find_first(nums, target)
+        if start == -1:
+            return [-1, -1]
+        end = self.find_last(nums, target)
+        return [start, end]
+        
+        
+    def find_first(self, nums, target):
+        start = 0
+        end = len(nums) - 1
+        while start + 1 < end:
+            mid = start + (end - start)//2
+            if nums[mid] < target:
+                start = mid
             else:
-                low = mid + 1
-        return high
-    
-    def searchRange(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        if not nums:
-            return [-1, -1]
-        end = self.bin_search(nums, target)
-        start = self.bin_search(nums, target - 1) + 1
-        if start >= 0 and start <= end and end < len(nums):
-            return [start, end]
-        else:
-            return [-1, -1]
+                end = mid
+                
+        if nums[start] == target:
+            return start
+        if nums[end] == target:
+            return end
+        return -1
+        
+    def find_last(self, nums, target):
+        start = 0
+        end = len(nums) - 1
+        while start + 1 < end:
+            mid = start + (end - start)//2
+            if nums[mid] > target:
+                end = mid
+            else:
+                start = mid
+                
+        if nums[end] == target:
+            return end
+        if nums[start] == target:
+            return start
+        return -1

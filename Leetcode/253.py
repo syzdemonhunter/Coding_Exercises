@@ -1,25 +1,39 @@
-# https://leetcode.com/problems/meeting-rooms-ii/
-# https://www.youtube.com/watch?v=PWgFnSygweI
-# T: O(n)
-# S: O(nlogn)
-
-#We need a data structure that dynamically keeps track of the meeting end times and fast access aka O(1) to the smallest end time.
-#A heap is an option.
-#The heap stores the smallest end time at the top.
-#First, we need to sort the input.
-#When we update the heap with a new meeting, we check if its start time is before the current smallest end time.
-#If yes, we add the meeting to the heap. This mean we need an additional room.
-#Otherwise, the first meeting ended and can be removed from the heap. We add the new meeting to the heap.
-#Eventually, the heap stores all the meetings that need separate rooms.
+# https://leetcode.com/problems/meeting-rooms-ii/submissions/
+# 这题非常非常的重要！！
+'''
+# T: O(nlogn)
+# S: O(n)
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
+        if not intervals or len(intervals) == 0:
+            return 0
+        
+        starts = [0]*len(intervals)
+        ends = [0]*len(intervals)
+        
+        for i in range(len(intervals)):
+            starts[i] = intervals[i][0]
+            ends[i] = intervals[i][1]
+        
+        starts.sort()
+        ends.sort()
+        result = 0
+        end = 0
+        
+        for i in range(len(intervals)):
+            if starts[i] < ends[end]:
+                result += 1
+            else:
+                end += 1
+                
+        return result
+'''
+# T: O(nlogn)
+# S: O(n)
 
 import heapq
-
-class Solution(object):
-    def minMeetingRooms(self, intervals):
-        """
-        :type intervals: List[List[int]]
-        :rtype: int
-        """
+class Solution:
+    def minMeetingRooms(self, intervals: List[List[int]]) -> int:
         if not intervals or len(intervals) == 0:
             return 0
         
@@ -37,5 +51,4 @@ class Solution(object):
                 heapq.heappush(min_heap, (interval[1], interval))
                 
         return len(min_heap)
-        
         

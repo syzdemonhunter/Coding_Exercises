@@ -1,27 +1,25 @@
 # https://leetcode.com/problems/walls-and-gates/
-# https://www.youtube.com/watch?v=Pj9378ZsCh4
-# Time complexity : O(mn) (from editorial)
-# Space complexity : O(mn)
+# T: O(m*n)
+# S: O(n)
 
-
-class Solution:
-    def wallsAndGates(self, rooms: List[List[int]]) -> None:
+class Solution(object):
+    def wallsAndGates(self, rooms):
         """
-        Do not return anything, modify rooms in-place instead.
+        :type rooms: List[List[int]]
+        :rtype: None Do not return anything, modify rooms in-place instead.
         """
         for i in range(len(rooms)):
-            for j in range(len(rooms[i])):
+            for j in range(len(rooms[0])):
                 if rooms[i][j] == 0:
-                    self.dfs(i, j, 0, rooms)
+                    self.dfs(rooms, i, j, 0)
                     
-    def dfs(self, i, j, count, rooms):
-        if i < 0 or i >= len(rooms) or j < 0 or j >= len(rooms[i]) or rooms[i][j] < count:
+    def dfs(self, rooms, i, j, dist):
+        if i < 0 or i >= len(rooms) or j < 0 or j >= len(rooms[0]) or rooms[i][j] < dist:
             return
         
-        rooms[i][j] = count
-        self.dfs(i + 1, j, count + 1, rooms)
-        self.dfs(i - 1, j, count + 1, rooms)
-        self.dfs(i, j + 1, count + 1, rooms)
-        self.dfs(i, j - 1, count + 1, rooms)
-        
-        
+        rooms[i][j] = dist
+        self.dfs(rooms, i - 1, j, dist + 1)
+        self.dfs(rooms, i + 1, j, dist + 1)
+        self.dfs(rooms, i, j + 1, dist + 1)
+        self.dfs(rooms, i, j - 1, dist + 1)
+

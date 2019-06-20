@@ -3,27 +3,27 @@
 # S: O(1)
 
 # Definition for singly-linked list.
-# class ListNode(object):
+# class ListNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
 
-class Solution(object):
-    def deleteDuplicates(self, head):
-        """
-        :type head: ListNode
-        :rtype: ListNode
-        """
+class Solution:
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return head
+        
         dummy = ListNode(0)
         dummy.next = head
-        pre = dummy
-        cur = pre.next
-        while cur:
-            while cur.next and cur.val == cur.next.val:
-                cur = cur.next
-            if pre.next != cur:
-                pre.next = cur.next
+        p = dummy
+        while p.next and p.next.next:
+            if p.next.val == p.next.next.val:
+                same_num = p.next.val
+                while p.next and p.next.val == same_num:
+                    p.next = p.next.next
+                    
             else:
-                pre = pre.next
-            cur = pre.next
+                p = p.next
+                
         return dummy.next
+        

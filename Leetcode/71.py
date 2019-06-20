@@ -12,11 +12,11 @@ class Solution:
         if path == "/": 
             return path
 
-        #Prepare for stack
+		#Prepare for stack
         if path[0] == "/": 
             path = path[1:]
-        if path[len(path)-1] == "/": 
-            path = path[:len(path)-1]
+        if path[len(path) - 1] == "/": 
+            path = path[:len(path) - 1]
 
         # 2. Stack
         path_stack = []

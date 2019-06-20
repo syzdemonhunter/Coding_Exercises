@@ -1,5 +1,5 @@
 # https://leetcode.com/problems/implement-strstr/
-# T: O(n - m + 1)*m
+# T: O(m*n)
 # S: O(1)
 
 class Solution(object):
@@ -9,11 +9,16 @@ class Solution(object):
         :type needle: str
         :rtype: int
         """
-        if haystack == needle:
+        if not needle or len(needle) == 0:
             return 0
         
-        for idx in range(len(haystack) - len(needle) + 1):
-        	if haystack[idx:idx+len(needle)] == needle:
-        		return idx 
-
+        for i in range(len(haystack)):
+            if i + len(needle) > len(haystack):
+                break
+            for j in range(len(needle)):
+                if haystack[i + j] != needle[j]:
+                    break
+                if j == len(needle) - 1:
+                    return i
+                
         return -1

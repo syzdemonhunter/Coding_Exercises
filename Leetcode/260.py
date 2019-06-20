@@ -1,25 +1,19 @@
 # https://leetcode.com/problems/single-number-iii/
+# 位运算，不用多看。面试中不怎么考
 # T: O(n)
 # S: O(1)
 
-
-class Solution(object):
-    def singleNumber(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[int]
-        """
-        if not nums:
-            return []
-        xor, mask = 0, 1
+class Solution:
+    def singleNumber(self, nums: List[int]) -> List[int]:
+        diff = 0
         for num in nums:
-            xor ^= num
-        while xor & mask == 0:
-            mask = mask << 1
-        x, y = 0, 0
+            diff ^= num
+        diff &= -diff
+        result = [0, 0]
         for num in nums:
-            if num & mask == 0:
-                x ^= num
+            if num & diff == 0:
+                result[0] ^= num
             else:
-                y ^= num
-        return [x, y]
+                result[1] ^= num
+        return result
+                

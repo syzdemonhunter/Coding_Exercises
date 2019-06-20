@@ -1,27 +1,19 @@
 # https://leetcode.com/problems/subsets/
-# T: O(n*2^n)
+# T: O(2^n)
 # S: O(n)
 
-class Solution(object):
-    def subsets(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
-        result = []
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        if not nums or len(nums) == 0:
+            return []
         
-        def dfs(n, start, cur):
-            if n == len(cur):
-                result.append(cur[:])
-                return
-            
-            for i in range(start, len(nums)):
-                cur.append(nums[i])
-                dfs(n, i + 1, cur)
-                cur.pop()
-                
-        for j in range(len(nums) + 1):
-            dfs(j, 0, [])
-            
+        result = []
+        self.dfs(result, [], nums, 0)
         return result
+    
+    def dfs(self, result, path, nums, index):
+        result.append(path)
+        for i in range(index, len(nums)):
+            self.dfs(result, path + [nums[i]], nums, i + 1)
+        
         

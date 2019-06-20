@@ -1,14 +1,12 @@
 # https://leetcode.com/problems/game-of-life/
-# https://www.jiuzhang.com/solution/game-of-life/#tag-highlight-lang-python
 # T: O(M*N)
 # S: O(1)
-
+# 这个题没什么太大意义，基本在面试中很少出现。
 class Solution:
-    """
-    @param board: the given board
-    @return: nothing
-    """
-    def gameOfLife(self, board):
+    def gameOfLife(self, board: List[List[int]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
         # Write your code here
         m = len(board)
         n = len(board[0])

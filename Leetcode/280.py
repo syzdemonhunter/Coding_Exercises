@@ -1,14 +1,16 @@
 # https://leetcode.com/problems/wiggle-sort/
-# T: O(nlogn)
+# T: O(n)
 # S: O(1)
 
-class Solution:
-    def wiggleSort(self, nums: List[int]) -> None:
+class Solution(object):
+    def wiggleSort(self, nums):
         """
-        Do not return anything, modify nums in-place instead.
+        :type nums: List[int]
+        :rtype: None Do not return anything, modify nums in-place instead.
         """
-        nums.sort()
-        for i in range(1, len(nums) - 1, 2):
-            nums[i], nums[i + 1] = nums[i + 1], nums[i]
-            
+        for i in range(1, len(nums)):
+            if (i % 2 == 1 and nums[i] < nums[i - 1]) or \
+               (i % 2 == 0 and nums[i] > nums[i - 1]):
+                nums[i - 1], nums[i] = nums[i], nums[i - 1]
+                
         

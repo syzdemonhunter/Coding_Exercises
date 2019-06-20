@@ -1,25 +1,19 @@
 # https://leetcode.com/problems/minimum-path-sum/
 # T: O(m*n)
-# S: O(n)
+# S: O(1)
 
-class Solution(object):
-    def minPathSum(self, grid):
-        """
-        :type grid: List[List[int]]
-        :rtype: int
-        """
-        if not grid:
-            return 0
+class Solution:
+    def minPathSum(self, grid: List[List[int]]) -> int:
         m, n = len(grid), len(grid[0])
-        d = [0]*n
-        d[0] = grid[0][0]
+        for i in range(m):
+            for j in range(n):
+                if i == 0 and j != 0:
+                    grid[i][j] += grid[i][j - 1]
+                if i != 0 and j == 0:
+                    grid[i][j] += grid[i - 1][j]
+                if i != 0 and j != 0:
+                    grid[i][j] += min(grid[i - 1][j], grid[i][j - 1])
+                    
+        return grid[m - 1][n - 1]
+                    
         
-        for j in range(1, n):
-            d[j] = d[j - 1] + grid[0][j]
-            
-        for i in range(1, m):
-            d[0] += grid[i][0]
-            for j in range(1, n):
-                d[j] = min(d[j], d[j - 1]) + grid[i][j]
-                
-        return d[n - 1]

@@ -1,20 +1,17 @@
 # https://leetcode.com/problems/longest-common-prefix/
-# T: O(nk)
-# S: O(k)
+# T: O(m*n)
+# S: O(1)
 
-class Solution(object):
-    def longestCommonPrefix(self, strs):
-        """
-        :type strs: List[str]
-        :rtype: str
-        """
-        zip_strs = map(list, zip(*strs))
-        result = ''
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        if not strs or len(strs) == 0:
+            return ''
         
-        for i in list(zip_strs):
-            if [i[0]] * len(i) == i:
-                result += i[0]
-            else:
-                break
+        for i in range(len(strs[0])):
+            c = strs[0][i]
+            for j in range(len(strs)):
+                if i == len(strs[j]) or strs[j][i] != c:
+                    return strs[0][0:i]
                 
-        return result
+        return strs[0]
+        

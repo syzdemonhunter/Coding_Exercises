@@ -1,4 +1,6 @@
 # https://leetcode.com/problems/happy-number/
+# T: ?
+# S: O(n)
 
 class Solution(object):
     def isHappy(self, n):

@@ -1,6 +1,5 @@
-#https://leetcode.com/problems/implement-queue-using-stacks/submissions/
-
-class MyQueue(object):
+# https://leetcode.com/problems/implement-queue-using-stacks/
+class MyQueue:
 
     def __init__(self):
         """
@@ -8,7 +7,7 @@ class MyQueue(object):
         """
         self.in_stack, self.out_stack = [], []
         
-    # O(1)
+
     def push(self, x):
         """
         Push element x to the back of queue.
@@ -22,7 +21,7 @@ class MyQueue(object):
             while self.in_stack:
                 self.out_stack.append(self.in_stack.pop())
         
-    # O(n)
+    # Time: O(n)
     def pop(self):
         """
         Removes the element from in front of queue and returns that element.
@@ -30,8 +29,7 @@ class MyQueue(object):
         """
         self.transfer_is_empty()
         return self.out_stack.pop()
-    
-    # O(1)
+
     def peek(self):
         """
         Get the front element.
@@ -39,10 +37,9 @@ class MyQueue(object):
         """
         if self.out_stack:
             return self.out_stack[-1]
-        else:
-            return self.in_stack[0]
+        return self.in_stack[0]
         
-    # O(1)    
+        
     def empty(self):
         """
         Returns whether the queue is empty.

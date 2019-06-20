@@ -1,23 +1,18 @@
 # https://leetcode.com/problems/maximum-subarray/
 # T: O(n)
-# S: O(1)
+# S: O(n)
 
-
-class Solution(object):
-    def maxSubArray(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        max_so_far = -float('inf')
-        cur = 0
-        
-        for i in range(len(nums)):
-            if cur <= 0:
-                cur = nums[i]
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        dp = [0]*len(nums)
+        dp[0] = nums[0]
+        result = dp[0]
+        for i in range(1, len(nums)):
+            if dp[i - 1] < 0:
+                dp[i] = nums[i]
             else:
-                cur += nums[i]
-            max_so_far = max(max_so_far, cur)
+                dp[i] = nums[i] + dp[i - 1]
+            result = max(result, dp[i])
             
-        return max_so_far
-            
+        return result
+        

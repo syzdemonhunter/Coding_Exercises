@@ -1,13 +1,19 @@
-# https://leetcode.com/problems/plus-one/discuss/159471/Python-solution
+# https://leetcode.com/problems/plus-one/
 # T: O(n)
 # S: O(n)
 
 class Solution:
     def plusOne(self, digits: List[int]) -> List[int]:
-        carry = 1
+        if not digits or len(digits) == 0:
+            return digits
+        
         for i in range(len(digits) - 1, -1, -1):
-            carry, digits[i] = divmod(digits[i]+carry, 10)
-            if carry == 0:
+            if digits[i] < 9:
+                digits[i] += 1
                 return digits
-        return [1] + digits
+            
+            else:
+                digits[i] = 0
+                
+        return [1] + [0]*len(digits) 
         

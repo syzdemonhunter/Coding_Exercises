@@ -2,22 +2,14 @@
 # T: O(n)
 # S: O(1)
 
-class Solution(object):
-    def maxProfit(self, prices):
-        """
-        :type prices: List[int]
-        :rtype: int
-        """
-        if len(prices) < 2:
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        if not prices or len(prices) < 2:
             return 0
         
-        max_profit = 0
-        buy = prices[0]
-        
-        for i in range(1, len(prices)):
-            if prices[i] < buy:
-                buy = prices[i]
-            else:
-                max_profit = max(max_profit, prices[i] - buy)
-                
-        return max_profit
+        profit = 0
+        min_price = prices[0]
+        for price in prices:
+            min_price = min(min_price, price)
+            profit = max(profit, price - min_price)
+        return profit

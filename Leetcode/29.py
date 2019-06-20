@@ -1,15 +1,10 @@
 # https://leetcode.com/problems/divide-two-integers/
 # https://www.youtube.com/watch?v=2bNV08KroqQ
-# time: O(log(n))
+# time: O(log(n)*log(n))
 # space: O(log(n))
 
-class Solution(object):
-    def divide(self, dividend, divisor):
-        """
-        :type dividend: int
-        :type divisor: int
-        :rtype: int
-        """
+class Solution:
+    def divide(self, dividend: int, divisor: int) -> int:
         sign = 1
         if ((dividend > 0 and divisor < 0) or (dividend < 0 and divisor > 0)):
             sign = -1
@@ -20,7 +15,7 @@ class Solution(object):
             return 0
         
         res_abs = self.helper(dividend_abs, divisor_abs)
-        return min(max(-2147483648, res_abs*sign), 2147483647)
+        return min(max(-2**31, res_abs*sign), 2**31 -1)
         
     def helper(self, dividend_abs, divisor_abs):
         if dividend_abs < divisor_abs:
@@ -33,9 +28,6 @@ class Solution(object):
             multiple += multiple
             
         return multiple + self.helper(dividend_abs - total, divisor_abs)
-        
-        
-        
         
             
         

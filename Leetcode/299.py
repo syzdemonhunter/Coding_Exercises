@@ -2,25 +2,21 @@
 # T: O(n)
 # S: O(1)
 
-class Solution(object):
-    def getHint(self, secret, guess):
-        """
-        :type secret: str
-        :type guess: str
-        :rtype: str
-        """
-        bull, cow = 0, 0
-        cache = {}
-        for i, v in enumerate(secret):
-            if v == guess[i]:
-                bull += 1
-            else:
-                cache[v] = cache[v] + 1 if v in cache else 1
-                
-        for i, v in enumerate(guess):
-            if v != secret[i] and v in cache and cache[v] > 0:
-                cow += 1
-                cache[v] -= 1
-                
-        return '{}A{}B'.format(bull, cow)
+class Solution:
+    def getHint(self, secret: str, guess: str) -> str:
+        bulls = 0
+        cows = 0
+        dic = {}
         
+        for idx, s in enumerate(secret):
+            if guess[idx] == s:
+                bulls += 1
+            else:
+                dic[s] = dic.get(s, 0) + 1
+                
+        for idx, s in enumerate(secret):
+            if (guess[idx] != s) and (dic.get(guess[idx], 0) != 0):
+                cows += 1
+                dic[guess[idx]] -= 1
+                
+        return str(bulls) + 'A' + str(cows) + 'B'

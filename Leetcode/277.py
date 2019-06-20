@@ -2,7 +2,6 @@
 # T: O(n)
 # S: O(1)
 
-# https://www.youtube.com/watch?v=LZJBZEnoYLQ
 # The knows API is already defined for you.
 # @param a, person a
 # @param b, person b
@@ -15,16 +14,14 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        candidate = 0
-        
+        if n < 2:
+            return -1
+        possible = 0
         for i in range(1, n):
-            if knows(candidate, i):
-                candidate = i
-                
+            if knows(possible, i):
+                possible = i
         for i in range(n):
-            if i != candidate and \
-            knows(candidate, i) or \
-            not knows(i, candidate):
+            if possible != i and (knows(possible, i) or not knows(i, possible)):
                 return -1
-            
-        return candidate
+        return possible
+                

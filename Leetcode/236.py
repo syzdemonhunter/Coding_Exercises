@@ -2,15 +2,24 @@
 # T: O(n)
 # S: O(n)
 
-
 # Definition for a binary tree node.
-# class TreeNode(object):
+# class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
 #         self.right = None
 
-class Solution(object):
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        p_path, q_path = [], []
+        self.dfs(root, p, p_path)
+        self.dfs(root, q, q_path)
+        length = min(len(p_path), len(q_path))
+        i = 0
+        while i < length and p_path[i] == q_path[i]:
+            i += 1
+        return p_path[i-1]
+    
     def dfs(self, root, node, path):
         if not root:
             return False
@@ -23,19 +32,4 @@ class Solution(object):
         last = path[-1]
         path.remove(last)
         return False
-    
-    def lowestCommonAncestor(self, root, p, q):
-        """
-        :type root: TreeNode
-        :type p: TreeNode
-        :type q: TreeNode
-        :rtype: TreeNode
-        """
-        p_path, q_path = [], []
-        self.dfs(root, p, p_path)
-        self.dfs(root, q, q_path)
-        length = min(len(p_path), len(q_path))
-        i = 0
-        while i < length and p_path[i] == q_path[i]:
-            i += 1
-        return p_path[i-1]
+        

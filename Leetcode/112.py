@@ -1,38 +1,39 @@
 # https://leetcode.com/problems/path-sum/
-# T: O(n)
-# S: O(n)
-
+# time: O(n)
+# space: O(n)
 
 # Definition for a binary tree node.
-# class TreeNode(object):
+# class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
 #         self.right = None
-
-class Solution(object):
-    def hasPathSum(self, root, sum):
-        """
-        :type root: TreeNode
-        :type sum: int
-        :rtype: bool
-        """
+'''
+class Solution:
+    def hasPathSum(self, root: TreeNode, total: int) -> bool:
         if not root:
             return False
-        node_stack, sum_stack = [root], [sum]
-        while node_stack:
-            node = node_stack.pop()
-            s = sum_stack.pop()
+        if not root.left and not root.right:
+            return total == root.val
+        return self.hasPathSum(root.left, total - root.val) or self.hasPathSum(root.right, total - root.val)
+'''
+class Solution:
+    def hasPathSum(self, root: TreeNode, total: int) -> bool:
+        if not root:
+            return False
+        stack = [root]
+        while stack:
+            cur = stack.pop()
+            if not cur.left and not cur.right:
+                if cur.val == total:
+                    return True
+            if cur.right:
+                stack.append(cur.right)
+                cur.right.val += cur.val
+            if cur.left:
+                stack.append(cur.left)
+                cur.left.val += cur.val
             
-            if not node.left and not node.right and node.val == s:
-                return True
-            if node.left:
-                node_stack.append(node.left)
-                sum_stack.append(s - node.val)
-            if node.right:
-                node_stack.append(node.right)
-                sum_stack.append(s - node.val)
-                
         return False
         
         

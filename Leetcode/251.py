@@ -1,5 +1,6 @@
-# https://leetcode.com/problems/flatten-2d-vector/
-# https://www.jiuzhang.com/solution/flatten-2d-vector/
+# https://leetcode.com/problems/flatten-2d-vector/submissions/
+# T: O(n)
+# S: O(1)
 
 class Vector2D:
 
@@ -19,6 +20,7 @@ class Vector2D:
     def hasNext(self) -> bool:
         if self.next_elem:
             return True
+        
         self.col += 1
         while self.row < len(self.vec_2d) and self.col >= len(self.vec_2d[self.row]):
             self.row += 1
@@ -29,7 +31,6 @@ class Vector2D:
             return True
         
         return False
-        
 
 
 # Your Vector2D object will be instantiated and called as such:

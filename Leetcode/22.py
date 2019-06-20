@@ -1,29 +1,24 @@
 # https://leetcode.com/problems/generate-parentheses/
-# T: O(4^n / (n*sqrt(n)))
+# T: O(n!)
 # S: O(n)
 
-# https://www.youtube.com/watch?v=XF0wh8M2A6E
-class Solution(object):
-    def generateParenthesis(self, n):
-        """
-        :type n: int
-        :rtype: List[str]
-        """
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
         if n == 0:
             return []
-        
+
         result = []
-        self.helper(n, n, '', result)
+        self.helper(result, '', n, n)
         return result
     
-    def helper(self, l, r, item, result):
-        if r < l:
+    def helper(self, result, s, left, right):
+        if left > right:
             return
-            
-        if l == 0 and r == 0:
-            result.append(item)
-    
-        if l > 0:
-            self.helper(l - 1, r, item + '(', result)
-        if r > 0:
-            self.helper(l, r - 1, item + ')', result)
+        if left == 0 and right == 0:
+            result.append(s)
+            return
+        if left > 0:
+            self.helper(result, s + '(', left - 1, right)
+        
+        if right > 0:
+            self.helper(result, s + ')', left, right - 1)

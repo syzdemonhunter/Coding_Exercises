@@ -1,22 +1,17 @@
-# https://leetcode.com/problems/clone-graph/
-# T: O(n*e)
-# S: O(n)
+# T: O(m + n), m: nodes, n: edges
+# S: O(m)
 
 """
 # Definition for a Node.
-class Node(object):
+class Node:
     def __init__(self, val, neighbors):
         self.val = val
         self.neighbors = neighbors
 """
-class Solution(object):
+class Solution:
     my_map = {}
     
-    def cloneGraph(self, node):
-        """
-        :type node: Node
-        :rtype: Node
-        """
+    def cloneGraph(self, node: 'Node') -> 'Node':
         if not node:
             return None
         
@@ -29,3 +24,4 @@ class Solution(object):
             else:
                 result.neighbors.append(self.cloneGraph(n))
         return result
+            

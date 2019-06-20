@@ -2,7 +2,6 @@
 # T: O(n)
 # S: O(1)
 
-
 # Definition for singly-linked list.
 # class ListNode(object):
 #     def __init__(self, x):
@@ -15,15 +14,13 @@ class Solution(object):
         :type head: ListNode
         :rtype: bool
         """
-        if not head:
+        if not head or not head.next:
             return False
-        if not head.next:
-            return False
-        
-        slow, fast = head, head
+        slow = fast = head
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
             if slow == fast:
                 return True
+            
         return False

@@ -1,16 +1,12 @@
-# https://www.youtube.com/watch?v=ABMLLVzf4ZQ
 # https://leetcode.com/problems/basic-calculator-ii/
 # T: O(n)
 # S: O(n)
 
-class Solution(object):
-    def calculate(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
+class Solution:
+    def calculate(self, s: str) -> int:
         if not s or len(s) == 0:
             return 0
+        
         stack = []
         res = 0
         sign = '+'
@@ -38,3 +34,5 @@ class Solution(object):
         for j in stack:
             res += j
         return res
+                    
+                    

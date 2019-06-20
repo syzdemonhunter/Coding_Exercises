@@ -3,37 +3,40 @@
 # S: O(n)
 
 # Definition for a binary tree node.
-# class TreeNode(object):
+# class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
 #         self.right = None
 
-class Solution(object):
-    def zigzagLevelOrder(self, root):
-        """
-        :type root: TreeNode
-        :rtype: List[List[int]]
-        """
+import collections
+class Solution:
+    def zigzagLevelOrder(self, root: TreeNode) -> List[List[int]]:
         if not root:
             return []
-        
-        result, current = [], [root]
-        
-        while current:
-            if len(result) % 2 != 0:
-                result.append([n.val for n in current[::-1]])
-            else:
-                result.append([n.val for n in current])
+        result = []
+        q = collections.deque([root])
+        x = True
+        while q:
+            size = len(q)
+            level = []
+            for i in range(size):
+                cur = q.popleft()
+                if x:
+                    level.append(cur.val)
+                else:
+                    level.insert(0, cur.val)
+                    
+                if cur.left:
+                    q.append(cur.left)
+                if cur.right:
+                    q.append(cur.right)
                 
-            next_level = []
-        
-            for n in current:
-                if n.left:
-                    next_level.append(n.left)
-                if n.right:
-                    next_level.append(n.right)
-
-            current = next_level
-            
+            result.append(level)
+            if x:
+                x = False
+            else:
+                x = True
+                
         return result
+        

@@ -1,29 +1,22 @@
 # https://leetcode.com/problems/word-search/
-# https://www.youtube.com/watch?v=Hcj1qVBD3YM
-# T: O(m*n*(3^k))
-# S: O(m*n)
+# T: O(m*n*4^k) ??
+# S: ??
 
-class Solution(object):
-    def exist(self, board, word):
-        """
-        :type board: List[List[str]]
-        :type word: str
-        :rtype: bool
-        """
-        if not board:
-            return True
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
         for i in range(len(board)):
             for j in range(len(board[0])):
                 if self.dfs(board, i, j, word):
                     return True
         return False
+    
     # check whether can find word, start at (i,j) position     
     def dfs(self, board, i, j, word):
         if len(word) == 0: # all the characters are checked
             return True
         
         if i < 0 or i >= len(board) or j < 0 \
-        or j >= len(board[0]) or word[0]!=board[i][j]:
+        or j >= len(board[0]) or word[0] != board[i][j]:
             return False
         
         tmp = board[i][j] # first character is found, check the remaining part
@@ -37,5 +30,4 @@ class Solution(object):
 
         board[i][j] = tmp
         return res
-            
         

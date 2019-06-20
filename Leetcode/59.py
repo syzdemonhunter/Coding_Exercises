@@ -1,38 +1,38 @@
 # https://leetcode.com/problems/spiral-matrix-ii/
-# https://www.youtube.com/watch?v=dfGhf-Ko0L4
-# T: O(m*n)
-# S: O(m*n)
+# T: O(n)
+# S: O(n)
 
 class Solution:
     def generateMatrix(self, n: int) -> List[List[int]]:
-        if n <= 0:
-            return [[]]
-        results = [[0 for _ in range(n)] for _ in range(n)]
-        top, bottom, left, right = 0, n - 1, 0, n - 1
-        k = 1
-        while top < bottom and left < right:
-            for i in range(left, right):
-                results[top][i] = k
-                k += 1
-                
-            for i in range(top, bottom):
-                results[i][right] = k
-                k += 1
-                
-            for i in range(right, left, -1):
-                results[bottom][i] = k
-                k += 1
-                
-            for i in range(bottom, top, -1):
-                results[i][left] = k
-                k += 1
-                
-            top += 1
-            bottom -= 1
-            left += 1
-            right -= 1
+        row_begin = 0
+        row_end = n - 1
+        col_begin = 0
+        col_end = n - 1
+        num = 1
+        matrix = [[0 for _ in range(n)] for _ in range(n)]
+        
+        while row_begin <= row_end and col_begin <= col_end:
+            for i in range(col_begin, col_end + 1):
+                matrix[row_begin][i] = num
+                num += 1
+            row_begin += 1
             
-        if n%2 != 0:
-            results[n//2][n//2] = k
-        return results
+            for i in range(row_begin, row_end + 1):
+                matrix[i][col_end] = num
+                num += 1
+            col_end -= 1
+            
+            for i in range(col_end, col_begin - 1, -1):
+                matrix[row_end][i] = num
+                num += 1
+            row_end -= 1
+            
+            for i in range(row_end, row_begin - 1, -1):
+                matrix[i][col_begin] = num
+                num += 1
+            col_begin += 1
+            
+        return matrix
+                
+            
         

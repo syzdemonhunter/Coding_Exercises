@@ -1,42 +1,39 @@
+# https://leetcode.com/problems/binary-search-tree-iterator/
+
 # Definition for a binary tree node.
-# class TreeNode(object):
+# class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
 #         self.right = None
 
-class BSTIterator(object):
+class BSTIterator:
 
-    def __init__(self, root):
-        """
-        :type root: TreeNode
-        """
+    def __init__(self, root: TreeNode):
         self.stack = []
-        self.helper(root)
-
-    def next(self):
+        self.cur = root
+        
+    # T: O(n)
+    def next(self) -> int:
         """
         @return the next smallest number
-        :rtype: int
         """
-        n = self.stack.pop()
-        self.helper(n.right)
-        return n.val
+        while self.cur:
+            self.stack.append(self.cur)
+            self.cur = self.cur.left
+        self.cur = self.stack.pop()
+        val = self.cur.val
+        self.cur = self.cur.right
+        return val
+        
 
-    def hasNext(self):
+    def hasNext(self) -> bool:
         """
         @return whether we have a next smallest number
-        :rtype: bool
         """
-        if self.stack == []:
-            return False
-        else:
+        if self.stack or self.cur:
             return True
-        
-    def helper(self, root):
-        while root != None:
-            self.stack.append(root)
-            root = root.left
+        return False
         
 
 

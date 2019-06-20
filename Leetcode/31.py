@@ -2,14 +2,12 @@
 # T: O(n)
 # S: O(1)
 
-
-class Solution(object):
-    def nextPermutation(self, nums):
+class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
         """
-        :type nums: List[int]
-        :rtype: None Do not return anything, modify nums in-place instead.
+        Do not return anything, modify nums in-place instead.
         """
-        if not nums or len(nums) < 2:
+        if not nums or len(nums) == 0:
             return
         
         p = len(nums) - 2
@@ -26,5 +24,4 @@ class Solution(object):
                 break
                 
         nums[p + 1:] = reversed(nums[p + 1:])
-        
-        
+            

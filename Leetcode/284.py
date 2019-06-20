@@ -1,8 +1,6 @@
-# https://leetcode.com/problems/peeking-iterator/
-
 # Below is the interface for Iterator, which is already defined for you.
 #
-# class Iterator:
+# class Iterator(object):
 #     def __init__(self, nums):
 #         """
 #         Initializes an iterator object to the beginning of a list.
@@ -21,30 +19,28 @@
 #         :rtype: int
 #         """
 
-class PeekingIterator:
+class PeekingIterator(object):
     def __init__(self, iterator):
         """
         Initialize your data structure here.
         :type iterator: Iterator
         """
-        self.iter = iterator
-        self.tmp = self.iter.next() if self.iter.hasNext() else None
-        
+        self.iter_obj = iterator
+        self.next_val = self.iter_obj.next() if self.iter_obj.hasNext() else None
 
     def peek(self):
         """
         Returns the next element in the iteration without advancing the iterator.
         :rtype: int
         """
-        return self.tmp
-        
+        return self.next_val
 
     def next(self):
         """
         :rtype: int
         """
-        result = self.tmp
-        self.tmp = self.iter.next() if self.iter.hasNext() else None
+        result = self.next_val
+        self.next_val = self.iter_obj.next() if self.iter_obj.hasNext() else None
         return result
         
 
@@ -52,8 +48,7 @@ class PeekingIterator:
         """
         :rtype: bool
         """
-        return self.tmp is not None
-        
+        return self.next_val is not None
 
 # Your PeekingIterator object will be instantiated and called as such:
 # iter = PeekingIterator(Iterator(nums))

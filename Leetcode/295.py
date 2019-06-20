@@ -1,8 +1,9 @@
 # https://leetcode.com/problems/find-median-from-data-stream/
-# The time complexity per entry is O(logn), corresponding to insertion and extraction from a heap.
+# T: O(logn)
+# S: O(n)
 
-class MedianFinder(object):
-    
+class MedianFinder:
+
     def __init__(self):
         """
         initialize your data structure here.
@@ -17,11 +18,8 @@ class MedianFinder(object):
         while len(self.min_heap) > len(self.max_heap) + 1:
             heapq.heappush(self.max_heap, -heapq.heappop(self.min_heap))
             
-    def addNum(self, num):
-        """
-        :type num: int
-        :rtype: None
-        """
+
+    def addNum(self, num: int) -> None:
         if len(self.min_heap) == 0:
             heapq.heappush(self.min_heap, -num)
             return
@@ -34,14 +32,18 @@ class MedianFinder(object):
             heapq.heappush(self.max_heap, num)
             
         self.rebalance()
-            
-            
-    def findMedian(self):
-        """
-        :rtype: float
-        """
+        
+
+    def findMedian(self) -> float:
         left = -self.min_heap[0]
         if len(self.min_heap) == len(self.max_heap):
             right = self.max_heap[0]
             return (left + right) / 2.0
-        return left * 1.0
+        return left*1.0
+        
+
+
+# Your MedianFinder object will be instantiated and called as such:
+# obj = MedianFinder()
+# obj.addNum(num)
+# param_2 = obj.findMedian()

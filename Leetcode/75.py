@@ -8,29 +8,19 @@ class Solution:
         Do not return anything, modify nums in-place instead.
         """
         if not nums or len(nums) == 0:
-            return 
-        cnt0 = cnt1 = cnt2 = 0
-        for num in nums:
-            if num == 0:
-                cnt0 += 1
-            elif num == 1:
-                cnt1 += 1
+            return
+        left, right = 0, len(nums) - 1 # left 0 position, right 1 starting point
+        index = 0
+        while index <= right:
+            if nums[index] == 0:
+                self.swap(nums, index, left)
+                index += 1
+                left += 1
+            elif nums[index] == 1:
+                index += 1
             else:
-                cnt2 += 1
-                
-        k = 0
-        i = j = l = 0
-        while i < cnt0:
-            nums[k] = 0
-            k += 1
-            i += 1
-            
-        while j < cnt1:
-            nums[k] = 1
-            k += 1
-            j += 1
-            
-        while l < cnt2:
-            nums[k] = 2
-            k += 1
-            l += 1
+                self.swap(nums, index, right)
+                right -= 1
+        
+    def swap(self, nums, i, j):
+        nums[i], nums[j] = nums[j], nums[i]

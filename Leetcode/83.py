@@ -2,29 +2,23 @@
 # T: O(n)
 # S: O(1)
 
-
 # Definition for singly-linked list.
-# class ListNode(object):
+# class ListNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
 
-class Solution(object):
-    def deleteDuplicates(self, head):
-        """
-        :type head: ListNode
-        :rtype: ListNode
-        """
-        if not head:
-            return None
-        p = head
-        q = p.next
-        while q:
-            if p.val == q.val:
-                p.next = q.next
+class Solution:
+    def deleteDuplicates(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return head
+        
+        cur = head
+        while cur.next:
+            if cur.next.val == cur.val:
+                cur.next = cur.next.next
             else:
-                p = p.next
-            q = q.next
-            
+                cur = cur.next
+                
         return head
         

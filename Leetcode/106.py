@@ -3,13 +3,33 @@
 # S: O(n)
 
 # Definition for a binary tree node.
-# class TreeNode(object):
+# class TreeNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.left = None
 #         self.right = None
+'''
+    3
+   / \
+  9  20
+    /  \
+   15   7
 
-class Solution(object):
+inorder = [9,3,15,20,7]
+postorder = [9,15,7,20,3]
+'''
+
+class Solution:
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> TreeNode:
+        if not inorder:
+            return None
+        if not postorder:
+            return None
+        in_pos = {}
+        for i in range(len(inorder)):
+            in_pos[inorder[i]] = i
+        return self.dfs(postorder, 0, len(postorder) - 1, 0, in_pos)
+                
     def dfs(self, post, post_start, post_end, in_start, in_pos):
         if post_start > post_end:
             return None
@@ -20,17 +40,5 @@ class Solution(object):
         root.right = self.dfs(post, post_start + left_len, post_end - 1, root_idx + 1, in_pos)
         return root
     
-    def buildTree(self, inorder, postorder):
-        """
-        :type inorder: List[int]
-        :type postorder: List[int]
-        :rtype: TreeNode
-        """
-        if not inorder:
-            return None
-        if not postorder:
-            return None
-        in_pos = {}
-        for i in range(len(inorder)):
-            in_pos[inorder[i]] = i
-        return self.dfs(postorder, 0, len(postorder) - 1, 0, in_pos)
+        
+        

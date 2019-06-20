@@ -1,37 +1,30 @@
 # https://leetcode.com/problems/partition-list/
 # T: O(n)
-# S: O(1)
-
+# S: O(n)
 
 # Definition for singly-linked list.
-# class ListNode(object):
+# class ListNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
 
-class Solution(object):
-    def partition(self, head, x):
-        """
-        :type head: ListNode
-        :type x: int
-        :rtype: ListNode
-        """
-        if not head:
-            return head
-        smaller, bigger = ListNode(0), ListNode(0)
-        ps, pg = smaller, bigger
-        cur = head
-        while cur:
-            if cur.val < x:
-                ps.next = cur
-                ps = ps.next
-            else:
-                pg.next = cur
-                pg = pg.next
-            cur = cur.next
-            
-        ps.next = bigger.next
-        pg.next = None
-        return smaller.next
-            
+class Solution:
+    def partition(self, head: ListNode, x: int) -> ListNode:
+        small_head = ListNode(0)
+        big_head = ListNode(0)
         
+        small = small_head
+        big = big_head
+        
+        while head:
+            tmp = ListNode(head.val)
+            if head.val < x:
+                small.next = tmp
+                small = small.next
+            else:
+                big.next = tmp
+                big = big.next
+            head = head.next
+            
+        small.next = big_head.next
+        return small_head.next

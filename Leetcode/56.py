@@ -1,24 +1,23 @@
 # https://leetcode.com/problems/merge-intervals/
-# T: O(log(n))
-# S: O(1)
+# T: O(nlogn)
+# S: O(n)
 
-
-class Solution(object):
-    def merge(self, intervals):
-        """
-        :type intervals: List[List[int]]
-        :rtype: List[List[int]]
-        """
-        if not intervals:
-            return []
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        if not intervals or len(intervals) <= 1:
+            return intervals
         
-        result = []
         intervals = sorted(intervals)
+        start, end = intervals[0][0], intervals[0][1]
+        result = []
         
         for interval in intervals:
-            if not result or result[-1][1] < interval[0]:
-                result.append(interval)
+            if interval[0] <= end:
+                end = max(end, interval[1])
             else:
-                result[-1][1] = max(result[-1][1], interval[1])
+                result.append([start, end])
+                start = interval[0]
+                end = interval[1]
                 
+        result.append([start, end])
         return result

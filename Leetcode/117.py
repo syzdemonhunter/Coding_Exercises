@@ -1,6 +1,6 @@
 # https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/
-# O(1) space and O(n) Time complexity
-
+# T: O(n)
+# S: O(1)
 """
 # Definition for a Node.
 class Node:
@@ -12,25 +12,24 @@ class Node:
 """
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
-        head, prev, curr = root, None, None
-        while head:
-            curr = head
-            prev = None
+        head, pre, cur = None, None, root
+        while cur:
+            while cur:
+                if cur.left:
+                    if pre:
+                        pre.next = cur.left
+                    else:
+                        head = cur.left
+                    pre = cur.left
+                    
+                if cur.right:
+                    if pre:
+                        pre.next = cur.right
+                    else:
+                        head = cur.right
+                    pre = cur.right
+                cur = cur.next
+            cur = head
+            pre = None
             head = None
-            while curr:
-                if curr.left:
-                    if prev:
-                        prev.next = curr.left
-                    else:
-                        head = curr.left
-                    prev = curr.left
-                if curr.right:
-                    if prev:
-                        prev.next = curr.right
-                    else:
-                        head = curr.right
-                    prev = curr.right
-                curr = curr.next
         return root
-        
-        

@@ -2,28 +2,25 @@
 # T: O(m + n)
 # S: O(1)
 
-
-class Solution(object):
+class Solution:
     def searchMatrix(self, matrix, target):
         """
         :type matrix: List[List[int]]
         :type target: int
         :rtype: bool
         """
-        if not matrix or len(matrix) == 0 \
-           or not matrix[0] or len(matrix[0]) == 0:
+        if not matrix or len(matrix) == 0:
             return False
         
-        m, n = len(matrix), len(matrix[0])
-        i, j = 0, n - 1
+        row, col = 0, len(matrix[0]) - 1
         
-        while i < m and j >= 0:
-            if target < matrix[i][j]:
-                j -= 1
-            elif target > matrix[i][j]:
-                i += 1
-            else:
+        while col >= 0 and row <= len(matrix) - 1:
+            if target == matrix[row][col]:
                 return True
-            
+            elif target < matrix[row][col]:
+                col -= 1
+            else:
+                row += 1
+                
         return False
         

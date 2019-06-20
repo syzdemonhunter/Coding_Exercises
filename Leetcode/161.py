@@ -1,21 +1,18 @@
 # https://leetcode.com/problems/one-edit-distance/
-# T: O(n)
+# T: O(n^2)
 # S: O(1)
 
 class Solution:
     def isOneEditDistance(self, s: str, t: str) -> bool:
-        m = len(s)
-        n = len(t)
-        if abs(m - n) > 1:
-            return False
-
-        if m > n:
-            return self.isOneEditDistance(t, s)
-
-        for i in range(m):
+        for i in range(min(len(s), len(t))):
             if s[i] != t[i]:
-                if m == n:
+                if len(s) == len(t):
                     return s[i + 1:] == t[i + 1:]
-                return s[i:] == t[i + 1:]
-
-        return m != n
+                elif len(s) > len(t):
+                    return s[i + 1:] == t[i:]
+                else:
+                    return t[i + 1:] == s[i:]
+                
+        return abs(len(s) - len(t)) == 1
+                
+        

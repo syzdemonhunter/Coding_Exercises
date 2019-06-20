@@ -2,26 +2,26 @@
 # T: O(n)
 # S: O(n)
 
-class Solution(object):
-    def addBinary(self, a, b):
-        """
-        :type a: str
-        :type b: str
-        :rtype: str
-        """
-        if len(a) == 0:
-            return b
-        
-        if len(b) == 0:
-            return a
-        
-        if a[-1] == '1' and b[-1] == '1':
-            return self.addBinary(self.addBinary(a[:-1], b[:-1]), '1') + '0'
-        
-        if a[-1] == '0' and b[-1] == '0':
-            return self.addBinary(a[:-1], b[:-1]) + '0'
-        else:
-            return self.addBinary(a[:-1], b[:-1]) + '1'
-    
-        
-        
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        result = ''
+        i, j = len(a) - 1, len(b) - 1
+        remainder = 0
+        while i >= 0 or j >= 0:
+            total = remainder
+            if i >= 0:
+                total += ord(a[i]) - ord('0')
+                i -= 1
+                
+            if j >= 0:
+                total += ord(b[j]) - ord('0')
+                j -= 1
+                
+            result += str(total % 2)
+            remainder = total // 2
+            
+        if remainder != 0:
+            result += str(remainder)
+            
+        return result[::-1]
+                

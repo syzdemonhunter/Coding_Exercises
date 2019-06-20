@@ -7,15 +7,14 @@ class Solution:
         if numRows <= 1:
             return s
         
-        sb = ['']*numRows
+        sb = ['' for _ in range(numRows)]
         for i in range(len(s)):
-            idx = i % (2*numRows - 2)
-            if idx >= numRows:
-                idx = 2*numRows -2 -idx
-            sb[idx] += s[i]
-                
-        for j in range(1, len(sb)):
-            sb[0] += sb[j]
+            index = i %  (2*numRows - 2)
+            index = index if index < numRows else 2*numRows - 2 - index
+            sb[index] += s[i]
+            
+        for i in range(1, len(sb)):
+            sb[0] += sb[i]
             
         return sb[0]
         

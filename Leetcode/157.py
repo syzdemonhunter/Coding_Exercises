@@ -1,4 +1,6 @@
 # https://leetcode.com/problems/read-n-characters-given-read4/
+# T: O(n)
+# S: O(1)
 
 """
 The read4 API is already defined for you.
@@ -20,9 +22,6 @@ The meaning here is that read4() function will read 4 characters at a time from 
 So read() function is reading at most n characters from a file ( we don’t know what file and how it’s reading from the file), and put x characters into char[] buf.
 '''
 
-# T: O(n)
-# S: O(4)
-
 class Solution:
     def read(self, buf, n):
         """
@@ -30,15 +29,16 @@ class Solution:
         :type n: Number of characters to read (int)
         :rtype: The number of actual characters read (int)
         """
-        offset = 0
-        buf4 = ['']*4
-        for i in range(n//4 + 1):
-            size = read4(buf4)
-            if size:
-                buf[offset:offset + size] = buf4
-                offset += size
-            else:
-                break
+        tmp = ['']*4
+        idx = 0
+        while True:
+            count = read4(tmp)
+            count = min(count, n - idx)
+            for i in range(count):
+                buf[idx] = tmp[i]
+                idx += 1
+            if idx == n or count < 4:
+                return idx
                 
-        return min(offset, n)
+    
         

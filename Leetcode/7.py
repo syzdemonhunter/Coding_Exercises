@@ -2,19 +2,15 @@
 # T: O(n)
 # S: O(1)
 
-class Solution(object):
-    def reverse(self, x):
-        """
-        :type x: int
-        :rtype: int
-        """
+class Solution:
+    def reverse(self, x: int) -> int:
         result, remain = 0, abs(x)
         while remain:
-            result = result * 10 + remain % 10
-            remain = remain // 10
+            result = result*10 + remain % 10
+            remain //= 10
             
         if x < 0:
-            ans = int(result) * -1
+            ans = int(result)*-1
         else:
             ans = int(result)
         
@@ -22,5 +18,4 @@ class Solution(object):
             return 0
         else:
             return ans
-
-            
+        

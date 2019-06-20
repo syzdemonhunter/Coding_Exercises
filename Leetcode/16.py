@@ -1,29 +1,25 @@
 # https://leetcode.com/problems/3sum-closest/
-# T: O(nlogn)
+# T: O(n^2)
 # S: O(1)
 
-class Solution(object):
-    def threeSumClosest(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: int
-        """
-        if not nums or len(nums) < 3:
-            return -1
-        
+class Solution:
+    def threeSumClosest(self, nums: List[int], target: int) -> int:
+        result = nums[0] + nums[1] + nums[len(nums) - 1]
         nums.sort()
-        result = None
+        
         for i in range(len(nums)):
-            left, right = i + 1, len(nums) - 1
-            while left < right:
-                total = nums[i] + nums[left] + nums[right]
-                if result is None or abs(total - target) < abs(result - target):
+            start = i + 1
+            end = len(nums) - 1
+            while start < end:
+                total = nums[i] + nums[start] + nums[end]
+                if total > target:
+                    end -= 1
+                else:
+                    start += 1
+                    
+                if abs(total - target) < abs(result - target):
                     result = total
                     
-                if total <= target:
-                    left += 1
-                else:
-                    right -= 1
-                    
         return result
+        
+        

@@ -1,7 +1,6 @@
-# https://leetcode.com/problems/house-robber/
+# https://leetcode.com/problems/house-robber/submissions/
 # T: O(n)
 # S: O(1)
-
 
 class Solution(object):
     def rob(self, nums):
@@ -22,3 +21,5 @@ class Solution(object):
             pre_pre = pre
             pre = cur
         return pre
+        
+            

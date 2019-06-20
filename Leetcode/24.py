@@ -14,13 +14,15 @@ class Solution:
             return head
         dummy = ListNode(0)
         dummy.next = head
-        p = dummy
-        while p.next and p.next.next:
-            tmp = p.next.next
-            p.next.next = tmp.next
-            tmp.next = p.next
-            p.next = tmp
-            p = p.next.next
-            
+        l1 = dummy
+        l2 = head
+        while l2 and l2.next:
+            next_start = l2.next.next
+            l1.next = l2.next
+            l2.next.next = l2
+            l2.next = next_start
+            l1 = l2
+            l2 = l2.next
+
         return dummy.next
         

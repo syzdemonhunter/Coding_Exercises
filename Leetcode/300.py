@@ -1,26 +1,22 @@
 # https://leetcode.com/problems/longest-increasing-subsequence/
-# T: O(n^2)
+# 这道题非常重要
+# T: O(nlogn)
 # S: O(n)
 
-
-class Solution(object):
-    def lengthOfLIS(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        if not nums or len(nums) == 0:
-            return 0
-        n = len(nums)
-        max_so_far = 1
-        d = [1]*n
-        
-        for i in range(1, n):
-            for j in range(i):
-                if nums[i] > nums[j]:
-                    d[i] = max(d[i], d[j] + 1)
-                    
-            max_so_far = max(max_so_far, d[i])
-            
-        return max_so_far
-        
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        tails = [0]*len(nums)
+        result = 0
+        for num in nums:
+            i, j = 0, result
+            while i != j:
+                mid = (i + j)//2
+                if tails[mid] < num:
+                    i = mid + 1
+                else:
+                    j = mid
+            tails[i] = num
+            if i == result:
+                result += 1
+                
+        return result

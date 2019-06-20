@@ -1,45 +1,33 @@
 # https://leetcode.com/problems/course-schedule-ii/
-# T: O(|V|+|E|)
-# S: O(|V|+|E|)
+# T: O(V + E)
+# S: O(n)
 
-class Solution(object):
-    def has_cycle(self, graph, visited, checked, v, path):
-        if visited[v]:
-            return True
-        visited[v] = True
-        for i in graph[v]:
-            if not checked[i] and self.has_cycle(graph, visited, checked, i, path):
-                return True
-        checked[v] = True
-        visited[v] = False
-        path.append(v)
-        return False
-    
-    def findOrder(self, numCourses, prerequisites):
-        """
-        :type numCourses: int
-        :type prerequisites: List[List[int]]
-        :rtype: List[int]
-        """
-        if not prerequisites or len(prerequisites) == 0 or numCourses <= 1:
-            return [i for i in range(numCourses)]
-        
-        graph = []
-        visited = []
-        checked = []
-        path = []
-        
-        for i in range(numCourses):
-            graph.append([])
-            checked.append(False)
-            visited.append(False)
-        for item in prerequisites:
-            graph[item[1]].append(item[0])
-        for i in range(numCourses):
-            if not checked[i] and self.has_cycle(graph, visited, checked, i, path):
-                return []
-    
-        path.reverse()
-        return path
+import collections
+class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        indegree = [0]*numCourses
+        result = [0]*numCourses
+        k = 0
+        for pair in prerequisites:
+            indegree[pair[0]] += 1
+            
+        q = collections.deque([])
+        for i in range(len(indegree)):
+            if indegree[i] == 0:
+                q.append(i)
+                result[k] = i
+                k += 1
+        while q:
+            pre = q.popleft()
+            for pair in prerequisites:
+                if pair[1] == pre:
+                    indegree[pair[0]] -= 1
+                    if indegree[pair[0]] == 0:
+                        q.append(pair[0])
+                        result[k] = pair[0]
+                        k += 1
+                        
+        return result if k == numCourses else []
+                        
             
         

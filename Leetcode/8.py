@@ -2,12 +2,8 @@
 # T: O(n)
 # S: O(1)
 
-class Solution(object):
-    def myAtoi(self, str):
-        """
-        :type str: str
-        :rtype: int
-        """
+class Solution:
+    def myAtoi(self, str: str) -> int:
         str_list = list(str.strip())
         
         if len(str_list) == 0:
@@ -26,3 +22,4 @@ class Solution(object):
             i += 1
             
         return max(-2**31, min(sign*result, 2**31-1))
+        

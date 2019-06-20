@@ -1,4 +1,5 @@
 # https://leetcode.com/problems/reorder-list/
+# T: O(n)
 # S: O(1)
 
 # Definition for singly-linked list.
@@ -12,30 +13,40 @@ class Solution:
         """
         Do not return anything, modify head in-place instead.
         """
-        if not head:
-            return head
-        low = fast = head
+        if not head or not head.next:
+            return 
+        dummy = ListNode(0)
+        dummy.next = head
+        tmp = None
+        slow, fast = head, head
+        l1 = head
         while fast and fast.next:
-            low = low.next
+            tmp = slow
+            slow = slow.next
             fast = fast.next.next
-        tmp = low.next
-        low.next = None
+        tmp.next = None
         
-        # reverse the right half
-        tail = cur = tmp
-        while cur and cur.next:
-            cur = cur.next
-            tail.next = cur.next
-            cur.next = tmp
-            tmp = cur
-            cur = tail
-            
-        # insert in order
-        mid = tmp
-        while mid:
-            tmp = mid.next
-            mid.next = head.next
-            head.next = mid
-            head = head.next.next
-            mid = tmp
+        l2 = self.reverse(slow)
+        self.merge(l1, l2)
+        
+    def reverse(self, head):
+        prev = None
+        while head:
+            tmp = head.next
+            head.next = prev
+            prev = head
+            head = tmp
+        return prev
+    
+    def merge(self, l1, l2):
+        while l1 != l2:
+            n1 = l1.next
+            n2 = l2.next
+            l1.next = l2
+            if not n1:
+                break
+            l2.next = n1
+            l1 = n1
+            l2 = n2
+        
         

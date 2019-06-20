@@ -2,22 +2,11 @@
 # T: O(n)
 # S: O(n)
 
-
-class Solution(object):
-    def reverseWords(self, s):
-        """
-        :type s: str
-        :rtype: str
-        """
-        s_list = s.split()
-        result = ""
-        s_len = len(s_list)
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        result = ''
+        words = s.strip().split()
+        for i in range(len(words) - 1, -1, -1):
+            result += words[i] + ' '
+        return result.strip()
         
-        for i in range(s_len):
-            if i == s_len - 1:
-                result = s_list[i] + result
-                
-            else:
-                result = " " + s_list[i] + result
-                
-        return result

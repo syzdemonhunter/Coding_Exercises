@@ -1,48 +1,40 @@
 # https://leetcode.com/problems/median-of-two-sorted-arrays/
-# T: O(log(m + n))
-# S: O(m + n)
+# https://blog.csdn.net/chen_xinjia/article/details/69258706
+# T: O(log(min(m, n)))
+# S: O(1)
 
-class Solution(object):
-    def findMedianSortedArrays(self, nums1, nums2):
-        """
-        :type nums1: List[int]
-        :type nums2: List[int]
-        :rtype: float
-        """
-        l1, l2 = len(nums1), len(nums2)
-        total = l1 + l2
-        if total % 2 != 0:
-            return self.helper(nums1, nums2, total / 2 + 1)
-        else:
-            a = self.helper(nums1, nums2, total / 2)
-            b = self.helper(nums1, nums2, total / 2 + 1)
-            return (float(a + b)) / 2
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        if len(nums1) > len(nums2):
+            return self.findMedianSortedArrays(nums2, nums1)
         
-    def helper(self, nums1, nums2, k):
-        # find k smallest in sorted array
-        l1, l2 = len(nums1), len(nums2)
-        base1, base2 = 0, 0
-        while True:
-            if l1 == 0:
-                return nums2[k + base2 - 1]
-            if l2 == 0:
-                return nums1[k + base1 - 1]
-            if k == 1:
-                return min(nums1[base1], nums2[base2])
+        length = len(nums1) + len(nums2)
+        cut1, cut2 = 0, 0
+        cutL, cutR = 0, len(nums1)
+        while cut1 <= len(nums1):
+            cut1 = (cutR - cutL)//2 + cutL
+            cut2 = length//2 - cut1
+            L1 = -sys.maxsize - 1 if cut1 == 0 else nums1[cut1 - 1]
+            L2 = -sys.maxsize - 1 if cut2 == 0 else nums2[cut2 - 1]
+            R1 = sys.maxsize if cut1 == len(nums1) else nums1[cut1]
+            R2 = sys.maxsize if cut2 == len(nums2) else nums2[cut2]
             
-            i = min(k / 2, l1)
-            j = min(k - i, l2)
-            a = nums1[base1 + i - 1]
-            b = nums2[base2 + j - 1]
-            if i + j == k and a == b:
-                return a
-            if a <= b:
-                base1 += i
-                l1 -= i
-                k -= i
-            if a >= b:
-                base2 += j
-                l2 -= j
-                k -= j
+            if L1 > R2:
+                cutR = cut1 - 1
+            elif L2 > R1:
+                cutL = cut1 + 1
+            else:
+                if length % 2 == 0:
+                    L1 = L1 if L1 > L2 else L2
+                    R1 = R1 if R1 < R2 else R2
+                    return (L1 + R1) / 2
+                else:
+                    R1 = R1 if R1 < R2 else R2
+                    return R1
+                
+        return -1
+            
+            
+        
         
         

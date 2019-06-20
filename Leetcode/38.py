@@ -1,12 +1,9 @@
 # https://leetcode.com/problems/count-and-say/
-# T: upper bound O(n2^n)
+# time: 不知道
+# S: O(n)
 
-class Solution(object):
-    def countAndSay(self, n):
-        """
-        :type n: int
-        :rtype: str
-        """
+class Solution:
+    def countAndSay(self, n: int) -> str:
         def next_number(s):
             result, i = [], 0
             

@@ -1,5 +1,7 @@
 # https://leetcode.com/problems/populating-next-right-pointers-in-each-node/
-#O(1) memory+ O(n) time
+# T: O(n)
+# S: O(n)
+
 """
 # Definition for a Node.
 class Node:
@@ -9,19 +11,43 @@ class Node:
         self.right = right
         self.next = next
 """
+'''
 class Solution:
     def connect(self, root: 'Node') -> 'Node':
         if not root:
-            return None
-        
-        cur, level_start = root, root.left
-        while level_start:
-            cur.left.next = cur.right
-            if cur.next:
-                cur.right.next = cur.next.left
-                cur = cur.next
-            else:
-                cur = level_start
-                level_start = level_start.left
-                
+            return
+        if root.left:
+            root.left.next = root.right
+        if root.next and root.right:
+            root.right.next = root.next.left
+        self.connect(root.left)
+        self.connect(root.right)
         return root
+'''
+# T: O(n)
+# S: O(1)
+
+class Solution:
+    def connect(self, root: 'Node') -> 'Node':
+        start = root
+        while start:
+            cur = start
+            while cur:
+                if cur.left:
+                    cur.left.next = cur.right
+                if cur.right and cur.next:
+                    cur.right.next = cur.next.left
+                cur = cur.next
+            start = start.left
+            
+        return root
+                
+                    
+                    
+        
+
+            
+        
+
+            
+        

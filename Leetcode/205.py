@@ -1,22 +1,42 @@
-# https://leetcode.com/problems/isomorphic-strings/
-# 开一个map尽量将s的字符替换为t对应的字符，再开一个map尽量将t的字符替换为s,如果两个都能成功，那么就能满足题目条件。
+# https://leetcode.com/problems/isomorphic-strings/submissions/
+# 这道题很重要
+'''
+# T: O(n^2)
+# S: O(1)
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        if not s or not t:
+            return True
+        
+        dic = {}
+        for i in range(len(s)):
+            a = s[i]
+            b = t[i]
+            if a in dic:
+                if dic[a] == b:
+                    continue
+                else:
+                    return False
+            else:
+                if b not in dic.values():
+                    dic[a] = b
+                else:
+                    return False
+                
+        return True
+'''
 # T: O(n)
-# S: O(n)
+# S: O(1)
 
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
-        map_1, map_2 = {}, {}
+        s_chars = [0]*256
+        t_chars = [0]*256
+        
         for i in range(len(s)):
-            if s[i] not in map_1:
-                map_1[s[i]] = t[i]
-            elif map_1[s[i]] != t[i]:
+            if s_chars[ord(s[i])] != t_chars[ord(t[i])]:
                 return False
-            
-        for j in range(len(t)):
-            if t[j] not in map_2:
-                map_2[t[j]] = s[j]
-            elif map_2[t[j]] != s[j]:
-                return False
-            
-        return True
+            else:
+                s_chars[ord(s[i])] = t_chars[ord(t[i])] = ord(t[i])
+        return True        
         

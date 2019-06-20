@@ -1,6 +1,5 @@
 # https://leetcode.com/problems/convert-sorted-list-to-binary-search-tree/
-# https://www.youtube.com/watch?v=H8hoDlakuK4
-# T: O(nlogn)
+# T: O(n)
 # S: O(n)
 
 # Definition for singly-linked list.
@@ -20,24 +19,21 @@ class Solution:
     def sortedListToBST(self, head: ListNode) -> TreeNode:
         if not head:
             return None
-        if not head.next:
-            return TreeNode(head.val)
+        return self.to_bst(head, None)
+    
+    def to_bst(self, head, tail):
+        if head == tail:
+            return None
         
-        def findMin(head):
-            slow = fast = head
-            prev = None
-            
-            while fast and fast.next:
-                prev = slow
-                slow = slow.next
-                fast = fast.next.next
-            prev.next = None
-            return slow
-                
-        mid = findMin(head)
-        root = TreeNode(mid.val)
-
-        root.left = self.sortedListToBST(head) # 从head到mid - 1
-        root.right = self.sortedListToBST(mid.next) # 从mid + 1 到 Tail
-
+        slow = head
+        fast = head
+        while fast != tail and fast.next != tail:
+            fast = fast.next.next
+            slow = slow.next
+        root = TreeNode(slow.val)
+        root.left = self.to_bst(head, slow)
+        root.right = self.to_bst(slow.next, tail)
         return root
+            
+        
+        

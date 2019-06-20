@@ -1,14 +1,9 @@
 # https://leetcode.com/problems/roman-to-integer/
-# https://www.youtube.com/watch?v=MBfPfAH6jdE
 # T: O(n)
 # S: O(1)
 
-class Solution(object):
-    def romanToInt(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
+class Solution:
+    def romanToInt(self, s: str) -> int:
         result = 0
         number_dict = {'I':1, 'V':5, 'X':10, 'L':50,
                        'C':100, 'D':500, 'M':1000}
@@ -21,3 +16,4 @@ class Solution(object):
                 result += number_dict[s[i]]
                 
         return result
+        

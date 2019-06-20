@@ -2,32 +2,26 @@
 # T: O(n^2)
 # S: O(1)
 
-class Solution(object):
-    def longestPalindrome(self, s):
-        """
-        :type s: str
-        :rtype: str
-        """
-        palindrome = ''
-
+class Solution:
+    result = ''
+    
+    def longestPalindrome(self, s: str) -> str:
+        if not s or len(s) == 0:
+            return s
+        
         for i in range(len(s)):
-        	# 1. 轴对称
-        	len_1 = len(self.get_longest_palindrome(s, i, i))
+            self.helper(s, i, i)
+            self.helper(s, i, i + 1)
+            
+        return self.result
+            
+    def helper(self, s, left, right):
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
 
-        	if len_1 > len(palindrome):
-        		palindrome = self.get_longest_palindrome(s, i, i)
-
-        	# 2. 两边扩展
-        	len_2 = len(self.get_longest_palindrome(s, i, i + 1))
-
-        	if len_2 > len(palindrome):
-        		palindrome = self.get_longest_palindrome(s, i, i + 1)
-                
-        return palindrome
+        cur = s[left + 1:right]
+        if len(cur) > len(self.result):
+            self.result = cur
         
         
-    def get_longest_palindrome(self, s, l, r):
-    	while l >= 0 and r < len(s) and s[l] == s[r]:
-    		l -= 1
-    		r += 1
-    	return s[l + 1:r]

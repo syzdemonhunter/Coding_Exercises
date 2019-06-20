@@ -1,31 +1,25 @@
 # https://leetcode.com/problems/combination-sum/
-# T: O(n^(target/min))
-# S: O(target/min)
+# T: O(2^n)
+# S: O(n)
 
-class Solution(object):
-    def dfs(self, nums, start, elem, result, target):
-        if target == 0:
-            result.append(elem[:])
-        if target < 0:
-            return
-        for i in range(start, len(nums)):
-            if nums[i] > target:
-                break
-            elem.append(nums[i])
-            self.dfs(nums, i, elem, result, target - nums[i])
-            elem.pop()
-            
-    def combinationSum(self, candidates, target):
-        """
-        :type candidates: List[int]
-        :type target: int
-        :rtype: List[List[int]]
-        """
-        if not candidates:
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        if not candidates or len(candidates) == 0:
             return []
         result = []
-        candidates.sort()
-        self.dfs(candidates, 0, [], result, target)
+        self.helper(result, [], candidates, target)
         return result
         
-        
+    def helper(self, result, path, candidates, target):
+        if target < 0:
+            return
+
+        if target == 0:
+            result.append(path)
+            return
+
+        for i in range(len(candidates)):
+            if candidates[i] > target:
+                continue
+            self.helper(result, path + [candidates[i]], candidates[i:], target - candidates[i])
+            

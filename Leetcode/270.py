@@ -1,11 +1,4 @@
-# https://leetcode.com/problems/closest-binary-search-tree-value/
-# > 类型：DFS遍历 | 分制
-# > Time Complexity O(N)
-# > Space Complexity O(1)
-
-# DFS中序遍历
-# In-Order走一遍，因为BST的性质，In-Order扫描出来的顺序是上升有序，然后比较当前的root.val。这种方法比较无脑。
-
+# https://cspiration.com/course/video?id=1217
 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -14,17 +7,36 @@
 #         self.left = None
 #         self.right = None
 
+'''
+# T: O(logn)
+# S: O(1)
 class Solution:
-    def __init__(self):
-        self.result = float('inf')
-        
     def closestValue(self, root: TreeNode, target: float) -> int:
-        if not root:
-            return None
-        self.closestValue(root.left, target)
-        if abs(root.val - target) < abs(self.result - target):
-            self.result = root.val
-        self.closestValue(root.right, target)
-        return self.result
+        result = root.val
+        while root:
+            if abs(target - root.val) < abs(target - result):
+                result = root.val
+            if root.val > target:
+                root = root.left
+            else:
+                root = root.right
+        return result
+'''
+# T: O(logn)
+# S: O(n)
+class Solution:
+    def closestValue(self, root: TreeNode, target: float) -> int:
+        return self.helper(root, target, root.val)
         
+    def helper(self, root, target, val):
+        if not root:
+            return val
+        if abs(target - root.val) < abs(target - val):
+            val = root.val
+        if root.val < target:
+            val = self.helper(root.right, target, val)
+        elif root.val > target:
+            val = self.helper(root.left, target, val)
+        return val
+            
         
