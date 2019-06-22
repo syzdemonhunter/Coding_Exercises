@@ -1,11 +1,10 @@
 # https://leetcode.com/problems/implement-trie-prefix-tree/
 
-class TrieNode(object):
-    def __init__(self, end=False):
-        self.word=False
-        self.children={}
-        
-        
+class TrieNode():
+    def __init__(self):
+        self.children = collections.defaultdict(TrieNode)
+        self.is_word = False
+
 class Trie:
 
     def __init__(self):
@@ -13,31 +12,28 @@ class Trie:
         Initialize your data structure here.
         """
         self.root = TrieNode()
-        
-    # time: O(n), n: word.length
-    # space: O(num of TrieNode*26) = O(num of word.length*26)
+
+    # Time O(n): n: word.length()
+    # O(num of TrieNode*26) = O(num of Words * len(word) * 26)
     def insert(self, word: str) -> None:
         """
         Inserts a word into the trie.
         """
         node = self.root
-        for i in word:
-            if i not in node.children:
-                node.children[i] = TrieNode()
-            node = node.children[i]
-        node.word = True
-        
+        for w in word:
+            node = node.children[w]
+        node.is_word = True
 
     def search(self, word: str) -> bool:
         """
         Returns if the word is in the trie.
         """
         node = self.root
-        for i in word:
-            if i not in node.children:
+        for w in word:
+            node = node.children.get(w)
+            if not node:
                 return False
-            node = node.children[i]
-        return node.word
+        return node.is_word
         
 
     def startsWith(self, prefix: str) -> bool:
