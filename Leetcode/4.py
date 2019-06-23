@@ -33,8 +33,3 @@ class Solution:
                     return R1
                 
         return -1
-            
-            
-        
-        
-        
