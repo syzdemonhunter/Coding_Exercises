@@ -1,9 +1,12 @@
 # https://leetcode.com/problems/is-subsequence/
-# T: O(m + n)
+# T: O(n)
 # S: O(1)
 
 class Solution:
     def isSubsequence(self, s: str, t: str) -> bool:
+        if not s or len(s) == 0:
+            return True
+        
         i, j = 0, 0
         while i < len(s) and j < len(t):
             if s[i] == t[j]:
