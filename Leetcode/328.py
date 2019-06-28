@@ -10,20 +10,19 @@
 
 class Solution:
     def oddEvenList(self, head: ListNode) -> ListNode:
-        if not head:
+        if not head or not head.next:
             return head
         
-        even_dummy_head = ListNode(0)
-        odd_dummy_head = ListNode(0)
-        
-        tails, turn = [even_dummy_head, odd_dummy_head], 0
-        
-        while head:
-            tails[turn].next = head
-            head = head.next
-            tails[turn] = tails[turn].next
-            turn ^= 1
+        odd, even = head, head.next
+        even_head = even
+        while even and even.next:
+            odd.next = odd.next.next
+            even.next = even.next.next
+            odd = odd.next
+            even = even.next
             
-        tails[1].next = None
-        tails[0].next = odd_dummy_head.next
-        return even_dummy_head.next
+        odd.next = even_head
+        return head
+        
+        
+        

@@ -2,8 +2,13 @@
 # T: O(m*n)
 # S: O(m)
 
-class Solution:
-    def change(self, amount: int, coins: List[int]) -> int:
+class Solution(object):
+    def change(self, amount, coins):
+        """
+        :type amount: int
+        :type coins: List[int]
+        :rtype: int
+        """
         dp = [0]*(amount + 1)
         dp[0] = 1
         
@@ -12,4 +17,3 @@ class Solution:
                 dp[i] += dp[i - coin]
                 
         return dp[amount]
-        
