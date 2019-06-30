@@ -1,12 +1,8 @@
-# https://leetcode.com/problems/nested-list-weight-sum-ii/
-# T: O(n)
-# S: O(n)
-
 # """
 # This is the interface that allows for creating nested lists.
 # You should not implement it, or speculate about its implementation
 # """
-#class NestedInteger(object):
+#class NestedInteger:
 #    def __init__(self, value=None):
 #        """
 #        If value is not specified, initializes an empty list.
@@ -44,41 +40,58 @@
 #        Return None if this NestedInteger holds a single integer
 #        :rtype List[NestedInteger]
 #        """
-import collections
 
-class Solution(object):
-    def depthSumInverse(self, nestedList):
-        """
-        :type nestedList: List[NestedInteger]
-        :rtype: int
-        """
-        if not nestedList or len(nestedList) == 0:
+'''
+# T: O(n)
+# S: O(n)
+class Solution:
+    def depthSumInverse(self, nestedList: List[NestedInteger]) -> int:
+        if not nestedList:
             return 0
         
-        res = []
-        q = collections.deque()
-        for ele in nestedList:
-            q.append(ele)
-            
-        while q:
-            level_sum = 0
-            for i in range(len(q)):
-                item = q.popleft()
-                
-                if item.isInteger():
-                    level_sum += item.getInteger()
+        total_sum, level_sum = 0, 0
+        while len(nestedList):
+            next_level_list = []
+            for x in nestedList:
+                if x.isInteger():
+                    level_sum += x.getInteger()
                 else:
-                    for ele in item.getList():
-                        q.append(ele)
-                        
-            res.append(level_sum)
-            
-        total_sum = 0
-        for i in range(len(res) - 1, -1, -1):
-            weight = len(res) - i
-            total_sum += res[i]*weight
+                    for y in x.getList():
+                        next_level_list.append(y)
+            total_sum += level_sum
+            nestedList = next_level_list
         return total_sum
+'''
+# T: O(n)
+# S: O(n)
+
+class Solution:
+    def depthSumInverse(self, nestedList: List[NestedInteger]) -> int:
+        if not nestedList:
+            return 0
+        max_depth = self.depth(nestedList)
+        self.d_sum = 0
+        self.helper(nestedList, 1, max_depth)
+        return self.d_sum
+    
+    def depth(self, nestedList):
+        curr_depth = 1
+        for x in nestedList:
+            if x.isInteger() == False:
+                curr_depth = max(curr_depth, 1 + self.depth(x.getList()))
+        return curr_depth
+    
+    def helper(self, nestedList, level, max_depth):
+        for x in nestedList:
+            if x.isInteger():
+                self.d_sum = self.d_sum + x.getInteger()*(max_depth-level + 1)
+            else:
+                self.helper(x.getList(), level + 1, max_depth)
+        return
+    
+
                 
+        
         
         
         

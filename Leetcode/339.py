@@ -1,3 +1,5 @@
+# https://leetcode.com/problems/nested-list-weight-sum/submissions/
+
 # """
 # This is the interface that allows for creating nested lists.
 # You should not implement it, or speculate about its implementation
@@ -40,26 +42,27 @@
 #        Return None if this NestedInteger holds a single integer
 #        :rtype List[NestedInteger]
 #        """
-
-# https://leetcode.com/problems/nested-list-weight-sum/
 # T: O(n)
 # S: O(n)
 
 class Solution:
     def depthSum(self, nestedList: List[NestedInteger]) -> int:
+        if not nestedList:
+            return 0
+        return self.helper(nestedList, 1)
+    
+    def helper(self, nestedList, depth):
+        result = 0
+        for nest in nestedList:
+            if nest.isInteger():
+                result += nest.getInteger()*depth
+            else:
+                result += self.helper(nest.getList(), depth + 1)
+                
+        return result
+
+
         
-        def dfs(nestedList, depth):
-            tmp_total = 0
-            
-            for i in nestedList:
-                if i.isInteger():
-                    tmp_total += i.getInteger()*depth
-                else:
-                    tmp_total += dfs(i.getList(), depth + 1)
-                    
-            return tmp_total
-        
-        return dfs(nestedList, 1)
         
         
         
