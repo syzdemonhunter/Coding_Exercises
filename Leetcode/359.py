@@ -1,4 +1,6 @@
 # https://leetcode.com/problems/logger-rate-limiter/
+# T: O(1)
+# S: O(n)
 
 class Logger:
 
@@ -6,7 +8,7 @@ class Logger:
         """
         Initialize your data structure here.
         """
-        self._d = {}
+        self.dic = {}
 
     def shouldPrintMessage(self, timestamp: int, message: str) -> bool:
         """
@@ -14,11 +16,11 @@ class Logger:
         If this method returns false, the message will not be printed.
         The timestamp is in seconds granularity.
         """
-        if message in self._d and timestamp - self._d[message] < 10:
-            return False
-        else:
-            self._d[message] = timestamp
+        if not message in self.dic or timestamp - self.dic[message] >= 10:
+            self.dic[message] = timestamp
             return True
+            
+        return False
 
 
 # Your Logger object will be instantiated and called as such:
