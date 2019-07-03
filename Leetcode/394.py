@@ -2,12 +2,11 @@
 # T: O(n)
 # S: O(n)
 
-class Solution(object):
-    def decodeString(self, s):
-        """
-        :type s: str
-        :rtype: str
-        """
+class Solution:
+    def decodeString(self, s: str) -> str:
+        if not s or len(s) == 0:
+            return s
+        
         stack = []
         cur_num = 0
         cur_str = ''
