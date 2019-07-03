@@ -1,5 +1,6 @@
-# https://leetcode.com/problems/flatten-nested-list-iterator/
-# http://bookshadow.com/weblog/2016/04/17/leetcode-flatten-nested-list-iterator/
+# https://leetcode.com/problems/flatten-nested-list-iterator/submissions/
+# T: O(n)
+# S: O(n)
 
 # """
 # This is the interface that allows for creating nested lists.
@@ -34,29 +35,33 @@ class NestedIterator(object):
         :type nestedList: List[NestedInteger]
         """
         self.stack = []
-        self.lst = nestedList
+        for i in range(len(nestedList) - 1, -1, -1):
+            self.stack.append(nestedList[i])
+        
 
     def next(self):
         """
         :rtype: int
         """
-        return self.stack.pop()
+        return self.stack.pop().getInteger()
+        
 
     def hasNext(self):
         """
         :rtype: bool
         """
-        while self.lst or self.stack:
-            if not self.stack:
-                self.stack.append(self.lst.pop(0))
-            while self.stack and not self.stack[-1].isInteger():
-                top = self.stack.pop().getList()
-                for e in top[::-1]:
-                    self.stack.append(e)
-            if self.stack and self.stack[-1].isInteger():
+        while self.stack:
+            cur = self.stack[-1]
+            if cur.isInteger():
                 return True
+            
+            self.stack.pop()
+            for i in range(len(cur.getList()) - 1, -1, -1):
+                self.stack.append(cur.getList()[i])
+                
         return False
-
+                
+        
 # Your NestedIterator object will be instantiated and called as such:
 # i, v = NestedIterator(nestedList), []
 # while i.hasNext(): v.append(i.next())
