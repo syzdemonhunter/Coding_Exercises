@@ -1,20 +1,19 @@
 # https://leetcode.com/problems/design-tic-tac-toe/
-# https://www.youtube.com/watch?v=_BDXk5mkxzQ&t=897s
-class TicTacToe(object):
 
-    def __init__(self, n):
+class TicTacToe:
+
+    def __init__(self, n: int):
         """
         Initialize your data structure here.
-        :type n: int
         """
-        self.row_counter = [0]*n
-        self.col_counter = [0]*n
-        self.diag_left = 0
-        self.diag_right = 0
-        self.n = n
+        self.rows = [0]*n
+        self.cols = [0]*n
+        self.diag = 0
+        self.anti_diag = 0
+        self.size = n
         
-
-    def move(self, row, col, player):
+    # T: O(1)
+    def move(self, row: int, col: int, player: int) -> int:
         """
         Player {player} makes a move at ({row}, {col}).
         @param row The row of the board.
@@ -24,32 +23,23 @@ class TicTacToe(object):
                 0: No one wins.
                 1: Player 1 wins.
                 2: Player 2 wins.
-        :type row: int
-        :type col: int
-        :type player: int
-        :rtype: int
         """
-        move = 1 if player == 1 else -1
-        self.row_counter[row] += move
-        self.col_counter[col] += move
-        if row == col:
-            self.diag_left += move
-        if row == self.n - col - 1:
-            self.diag_right += move
+        to_add = 1 if player == 1 else -1
         
-        if self.row_counter[row] == self.n \
-        or self.col_counter[col] == self.n \
-        or self.diag_left == self.n \
-        or self.diag_right == self.n:
-            return 1
-        elif self.row_counter[row] == -self.n \
-        or self.col_counter[col] == -self.n \
-        or self.diag_left == -self.n \
-        or self.diag_right == -self.n:
-            return 2
-        else:
-            return 0
+        self.rows[row] += to_add
+        self.cols[col] += to_add
+        if row == col:
+            self.diag += to_add
             
+        if col == len(self.cols) - row - 1:
+            self.anti_diag += to_add
+        
+        if abs(self.rows[row]) == self.size \
+        or abs(self.cols[col]) == self.size \
+        or abs(self.diag) == self.size \
+        or abs(self.anti_diag) == self.size:
+            return player
+        return 0
 
 # Your TicTacToe object will be instantiated and called as such:
 # obj = TicTacToe(n)
