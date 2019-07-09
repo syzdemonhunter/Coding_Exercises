@@ -1,7 +1,7 @@
 # https://leetcode.com/problems/maximum-subarray/
+'''
 # T: O(n)
 # S: O(n)
-
 class Solution:
     def maxSubArray(self, nums: List[int]) -> int:
         dp = [0]*len(nums)
@@ -15,4 +15,19 @@ class Solution:
             result = max(result, dp[i])
             
         return result
+'''
+# T: O(n)
+# S: O(1)
+
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        result = nums[0]
+        max_end = nums[0]
+        
+        for num in nums[1:]:
+            max_end = max(num, max_end + num)
+            result = max(result, max_end)
+            
+        return result
+
         
