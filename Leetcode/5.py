@@ -1,27 +1,22 @@
-# https://leetcode.com/problems/longest-palindromic-substring/
 # T: O(n^2)
 # S: O(1)
 
 class Solution:
-    result = ''
-    
     def longestPalindrome(self, s: str) -> str:
-        if not s or len(s) == 0:
-            return s
-        
-        for i in range(len(s)):
-            self.helper(s, i, i)
-            self.helper(s, i, i + 1)
+        cur_longest = [0, 1]
+        for i in range(1, len(s)):
+            odd = self.helper(s, i - 1, i + 1)
+            even = self.helper(s, i - 1, i)
+            longest = max(odd, even, key = lambda x: x[1] - x[0])
+            cur_longest = max(longest, cur_longest, key = lambda x: x[1]  - x[0])
             
-        return self.result
+        return s[cur_longest[0]:cur_longest[1]]
             
     def helper(self, s, left, right):
-        while left >= 0 and right < len(s) and s[left] == s[right]:
+        while left >= 0  and right < len(s):
+            if s[left] != s[right]:
+                break
             left -= 1
             right += 1
 
-        cur = s[left + 1:right]
-        if len(cur) > len(self.result):
-            self.result = cur
-        
-        
+        return [left + 1, right]
